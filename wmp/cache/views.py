@@ -13,9 +13,17 @@ def getcache(request,key=''):
 
 def get_cache(key):
 	import urllib3
+	import os
 	http = urllib3.PoolManager()
-	url = '%s/%s' % (settings.CACHE_URL,key)
-	print (url)
+	# return os.getenv('CACHE_SERVER_URL', 'test')
+	import os
+	# retun case_url
+	cacheurl = os.getenv('CACHE_SERVER_URL', 'test')
+	url = '%s/%s' % (cacheurl,key)
+	# return url
+	# url = '%s/%s' % ('http://127.0.0.1:8001',key)
+	# 'CACHE_SERVER_URL'
+	# print (url)
 	r = http.request('GET',url )
 	if r.status == 200:
 		return r.data.decode("utf-8")

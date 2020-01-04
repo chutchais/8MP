@@ -12,3 +12,5 @@ graphene-django
 django-api-decorators
 urllib3
 pymongo
+gunicorn==19.9.0
+

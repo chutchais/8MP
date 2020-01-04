@@ -1,8 +1,11 @@
 # docker-compose.yml
 
-version: '3.3'
+version: '3'
 
 services:
+
+  
+
   wmp-redis:
     container_name: wmp-redis
     image: redis:5.0.6-alpine
@@ -18,23 +21,45 @@ services:
     container_name: cache-server
     depends_on:
       - wmp-redis
-    environment:
-      - REDIS_URL=redis://wmp-redis:6379/0
+    # environment:
+    #   - REDIS_URL=redis://wmp-redis:6379/0
     ports:
       - 8001:5000
 
   wmp-server:
-      build: .
-      container_name: wmp_server
-      volumes: 
-      - .:/wmp
-      - static:/wmp/static_cdn
-      - media:/wmp/media_cdn
-      depends_on: 
-      expose: 
-        - 8000
-      command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --workers=3 wmp.wsgi -b 0.0.0.0:8000"
+    container_name: wmp-server
+    restart: always
+    build: ./wmp
+    expose:
+      - "8000"
+    links:
+      - postgres:postgres
+      # - redis:redis
+    volumes:
+      - web-django:/usr/src/app
+      - web-static:/staticfiles
+    env_file: .env
+    environment:
+      - CACHE_SERVER_URL=http://cache-server:8001
+      # DEBUG: 'False'
+    command: gunicorn wmp.wsgi:application -w 2 -b :8000
+    ports:
+      - 8000:8000
 
+# gunicorn --workers=3 wmp.wsgi -b 0.0.0.0:8000
+
+  postgres:
+    restart: always
+    image: postgres:latest
+    container_name: postgres-server
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
 
 volumes:  
   cache_data:
+  web-django:
+  web-static:
+  pgdata:
+  cache-server:

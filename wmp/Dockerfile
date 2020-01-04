@@ -1,9 +1,19 @@
-# Dockerfile - this is a comment. Delete me if you want.
 FROM python:3.7.5-alpine
 
-RUN apk add --update --no-cache \
-    g++ gcc libxslt-dev musl-dev python3-dev \
-    libffi-dev openssl-dev jpeg-dev zlib-dev
+RUN apk update && apk add libpq
+
+RUN apk add --no-cache --virtual .build-deps \
+    gcc \
+    python3-dev \
+    musl-dev \
+    postgresql-dev \
+    && pip install --no-cache-dir psycopg2 \
+    && apk del --no-cache .build-deps
+
+# Installing and build python module
+RUN pip install psycopg2
+
+
 ENV LIBRARY_PATH=/lib:/usr/lib
 
 WORKDIR /usr/src/wmp
