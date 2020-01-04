@@ -6,19 +6,11 @@ RUN apk add --update --no-cache \
     libffi-dev openssl-dev jpeg-dev zlib-dev
 ENV LIBRARY_PATH=/lib:/usr/lib
 
-WORKDIR /usr/src/cache
-COPY ./requirements.txt /usr/src/cache
+WORKDIR /usr/src/wmp
+COPY ./requirements.txt /usr/src/wmp
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 #ENTRYPOINT ["python"]
-COPY . /usr/src/cache
-#CMD ["app.py"]
-
-
-
-
-
-#docker build -t my_docker_flask:latest .
-#docker run -d -p 80:5000 my_docker_flask:latest
+COPY . /usr/src/wmp

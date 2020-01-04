@@ -23,5 +23,18 @@ services:
     ports:
       - 8001:5000
 
+  wmp-server:
+      build: .
+      container_name: wmp_server
+      volumes: 
+      - .:/wmp
+      - static:/wmp/static_cdn
+      - media:/wmp/media_cdn
+      depends_on: 
+      expose: 
+        - 8000
+      command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --workers=3 wmp.wsgi -b 0.0.0.0:8000"
+
+
 volumes:  
   cache_data:
