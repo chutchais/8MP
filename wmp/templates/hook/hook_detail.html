@@ -1,0 +1,64 @@
+
+{% extends "base.html" %}
+{% load system_tag %}
+
+
+{% block title %}
+	Product Detail
+{% endblock %}
+
+{% block content %}
+<main role="main" class="container">
+	<div class="row">
+		<h2 class="mt-5">Hook Detail : {{ object.name }}</h2>
+	</div>
+	<a href="../"><i class="fa fa-home" style="font-size:24px;color:blue" aria-hidden="true"></i></a>
+    <div class="row">
+          <div class="col-md-4">
+            <h4>Basic Information</h4>
+            <table class="table">
+			  
+			  <tbody>
+			  	<tr>
+			      <td>Event</td>
+			      <td>{{object.event}}</td>
+			    </tr>
+
+			    <tr>
+			      <td>Title</td>
+			      <td>{{object.title}}</td>
+			    </tr>
+
+			    <tr>
+			      <td>Description</td>
+			      <td>{{object.description}}</td>
+			    </tr>
+			    <tr>
+			      <td>Category1</td>
+			      <td>{{object.category1}}</td>
+			    </tr>
+			    <tr>
+			      <td>Category2</td>
+			      <td>{{object.category2}}</td>
+			    </tr>
+			    <tr>
+			      <td>Create date.</td>
+			      <td>{{object.create_date}}</td>
+			    </tr>
+			    
+			    <tr>
+			      <td>Snippet Code</td>
+			      <td><a href="{{ object.snippet.get_absolute_url }}">{{object.snippet}}</a></td>
+			    </tr>
+			    
+			  </tbody>
+			</table>
+          </div>
+    </div> 
+
+    {{object.snippet.highlighted|safe}}
+
+
+</main>
+
+{% endblock content %}

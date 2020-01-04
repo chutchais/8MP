@@ -1,0 +1,14 @@
+six==1.12
+Django==2.2.9
+djangorestframework==3.8.2
+djangorestframework-jwt==1.11.0
+djangorestframework-simplejwt==3.2.3
+Pygments
+PyJWT
+pytz
+django-filter
+django-import-export
+graphene-django
+django-api-decorators
+urllib3
+pymongo

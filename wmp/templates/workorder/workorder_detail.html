@@ -1,0 +1,96 @@
+
+{% extends "base.html" %}
+
+
+{% block title %}
+	Workorder : {{ object.name }}
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">	
+		<h1>Workorder : {{object.name}}</h1> 
+		<a href="../">Back to Workorder list</a><br>
+		<i>Created date : {{object.created_date}} -- {{object.created_user}}</i><br>
+		<i>Modified date : {{object.modified_date}}</i>
+
+		<div class="row">
+          <div class="col-md-6">
+            <h4>Basic Information</h4>
+		<table class="table">
+		  <tbody>
+		  	<tr>
+		  		<td>Title</td>
+		      	<td>{{object.title}}</td>
+		    </tr>
+		  	<tr>
+		  		<td>Description</td>
+		      	<td>{{object.description|linebreaks}}</td>
+		    </tr>
+		    <tr>
+		  		<td>Slug</td>
+		      	<td>{{object.slug}}</td>
+		    </tr>
+		    <tr>
+		  		<td>Product</td>
+		      	<td>
+		      		<a href="{{object.product.get_absolute_url}}">
+		      		{{object.product}}
+		      		</a>
+		      	</td>
+		    </tr>
+		    <tr>
+		  		<td>Routing</td>
+		      	<td>
+		      		{% if object.routing %}
+		      		<a href="{{object.routing.get_absolute_url}}">
+		      		{{object.routing}}
+		      		</a>
+		      		{% endif %}
+		      	</td>
+		    </tr>
+		    <tr>
+		  		<td>RegExp</td>
+		      	<td>{{object.regexp}}</td>
+		    </tr>
+		    <tr>
+		  		<td>Qty</td>
+		      	<td>{{object.qty}}</td>
+		    </tr>
+		    <tr>
+		  		<td>Registered</td>
+		      	<td>{{object.registered}}</td>
+		    </tr>
+
+		    <tr>
+		  		<td>Category</td>
+		      	<td>{{object.category1}}/{{object.category2}}</td>
+		    </tr>
+
+		    <tr>
+		  		<td>Status</td>
+		      	<td><i class="fa {% if object.status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+
+		<div class="col-md-6">
+            <h4>Registered Serial number</h4>
+            {% for sn in object.serialnumbers.all|dictsort:"number" %}
+            	<span><a href="{{sn.get_absolute_url}}">
+            		{% if sn.wip %}
+            			{{sn.number}}
+            		{% else %}
+            			<strike>{{sn.number}}</strike>
+            		{% endif %}
+            	</a></span> |
+            {% endfor %}
+        </div>
+
+         
+    </div>
+
+</div>
+
+	</div>
+{% endblock content %}

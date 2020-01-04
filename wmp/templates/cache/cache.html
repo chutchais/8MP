@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}8AM - Cache query{% endblock %}
+
+{% block content %}
+
+	<h1>Cache Query</h1>
+    <a href="../"><i class="fa fa-home" style="font-size:24px;color:blue" aria-hidden="true"></i></a>
+	<div class="wrapper">	
+
+
+    <form class='form' method='GET' action='.'>
+                        <input type='text' id='search' placeholder="Search cache" name="q" value='{{ request.GET.q}}'>
+                        <button class='btn btn-default' type='submit'>Search</button>
+                        <a href="{% url 'cache:list'  %}">Clear result</a>
+    </form>
+
+
+    <h3>Returned Value</h3>
+    KEY : {{key}} <br>
+    Value : {{value}}
+   
+
+	</div>
+		
+{% endblock content %}
+
+
+{% block stylesheet %}
+{% endblock stylesheet %}

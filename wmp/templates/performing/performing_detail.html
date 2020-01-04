@@ -1,0 +1,106 @@
+
+{% extends "base.html" %}
+
+
+{% block title %}
+	Perfroming : {{ object.sn.number }}
+{% endblock %}
+
+{% block content %}
+<div>
+
+		<h1>Performing : <a href="{{object.sn.get_absolute_url}}">{{ object.sn.number }}</a></h1>
+		<a href="./">Back to Performing list</a><br>
+    <div class="row">
+    	
+          <div class="col-md-12">
+            <h4>Basic Information</h4>
+            <table class="table">
+			  
+			  <tbody>
+			    <tr>
+			      <td>Operation</td>
+			      <td>{{object.operation}}</td>
+			      <td>Start/Stop</td>
+			      <td>{{object.start_time}} to {{object.stop_time}} ({{object.start_time|timesince:object.stop_time}})</td>
+			    </tr>
+
+			    <tr>
+			      <td>Resource</td>
+			      <td>{{object.resource_name}}</td>
+			      <td>Interval</td>
+			      <td>{{object.interval}}</td>
+			    </tr> 
+
+			    <tr>
+			      <td>Result</td>
+			    <td>
+		  				<i class="fa {% if object.result  %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.result %} true  {% else %} false {% endif %}" aria-hidden="true"></i>
+		  			</td>
+		  			 <td>User</td>
+			      <td>{{object.user}}</td>
+		  		</tr>
+
+			    <tr>
+			      <td>Remark</td>
+			      <td colspan="3">{{object.remark}}</td>
+
+			     
+			    </tr>      
+			    
+			  </tbody>
+			</table>
+          </div>
+        </div>
+
+        <div class="row">
+	        <div class="col-md-6">
+	            <h4>Parametric Information</h4>
+	            <table class="table table-hover">
+				  <thead >
+				    <tr>
+				      <th scope="col">Item Name</th>
+				      <th scope="col">Value</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	{% for item in object.parametric_set.all %}
+				  		<tr>
+				  			<td>{{item.name}}</td>
+				  			<td>{{item.value}}</td>
+				  			
+				  		</tr>
+				  	{% empty %}
+				  		No Parametric Information
+				  	{% endfor %}
+				  </tbody>
+				</table>
+	        </div>
+
+	        <div class="col-md-6">
+	            <h4>Failure Information</h4>
+	            <table class="table table-hover">
+				  <thead >
+				    <tr>
+				      <th scope="col">Symptom code</th>
+				      <th scope="col">Remark</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	{% for fail in object.failure_set.all %}
+				  		<tr>
+				  			<td>{{fail.symptomcode}}</td>
+				  			<td>{{fail.remark}}</td>
+				  			
+				  		</tr>
+				  	{% empty %}
+				  		No Parametric Information
+				  	{% endfor %}
+				  </tbody>
+				</table>
+	        </div>
+
+    	</div> 
+</div>
+
+{% endblock content %}

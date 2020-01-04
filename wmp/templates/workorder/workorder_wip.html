@@ -1,0 +1,52 @@
+
+{% extends "../base.html" %}
+
+
+{% block title %}
+	Serialnumber Detail
+{% endblock %}
+
+{% block content %}
+<main role="main" class="container">
+
+    <div class="row">
+          <div class="col-md-12">
+            <h4>Wip Information</h4>
+            <table class="table table-hover">
+		  <thead >
+		    <tr>
+		      <th scope="col">Serial number</th>
+		      <th scope="col">Work order</th>
+		      <th scope="col">Current Operation</th>
+		      <th scope="col">Previous Operation</th>
+		      <th scope="col">Datetime</th>
+		      <th scope="col">Aging</th>
+		      <th scope="col">WIP</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	{% for operation in object_list %}
+		  		<tr>
+		  			<td><a href="{{ operation.get_absolute_url }}">{{operation.number}}</a></td>
+		  			<td>{{operation.workorder}}</td>
+		  			<td>{{operation.current_operation}}</td>
+		  			<td>{{operation.last_operation}}</td>
+		  			<td>{{operation.last_modified_date}}</td>
+		  			<td>{{operation.last_modified_date|timesince}}</td>
+		  			<td>{{operation.wip}}</td>
+		  			
+		  		</tr>
+		  	{% empty %}
+		  		No WIP Information
+		  	{% endfor %}
+		  </tbody>
+		</table>
+        </div>
+
+        <!-- <div class="col-md-6">
+            <h4>Component Information</h4>
+        </div> -->
+    </div> 
+</main>
+
+{% endblock content %}

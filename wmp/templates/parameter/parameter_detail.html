@@ -1,0 +1,112 @@
+
+{% extends "base.html" %}
+{% load system_tag %}
+
+
+{% block title %}
+	Parameter Detail
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+
+		<h1>Parameter Detail : {{ object.name }}</h1>
+
+		<a href="../">Back to Parameter list</a><br>
+		<i>Created date : {{object.created_date}} -- {{object.created_user}}</i><br>
+		<i>Modified date : {{object.modified_date}}</i>
+    <div class="row">
+          <div class="col-md-8">
+            <h4>Basic Information</h4>
+            <table class="table">
+			  
+			  <tbody>
+			    <tr>
+			      <td>Title</td>
+			      <td>{{object.title}}</td>
+			    </tr>
+
+			    <tr>
+			      <td>Description</td>
+			      <td>{{object.description}}</td>
+			    </tr>
+
+			    <tr>
+			      <td>Slug</td>
+			      <td>{{object.slug}}</td>
+			    </tr>
+
+			    <tr>
+			      <td>Category1</td>
+			      <td>{{object.category1}}</td>
+			    </tr>
+			    <tr>
+			      <td>Category2</td>
+			      <td>{{object.category2}}</td>
+			    </tr>
+			    
+			    <tr>
+			  		<td>Status</td>
+			      	<td><i class="fa {% if object.status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
+			    </tr>
+			    
+			   
+			    
+			  </tbody>
+			</table>
+          </div>
+    </div> 
+
+    <div class="row">
+          <div class="col-md-12">
+            <h4>Item Information</h4>
+            <table class="table">
+            	<thead>
+            	<tr>
+            	  <td>Name</td>
+            	  <td>Title</td>
+            	  <td>Type</td>
+			      <td>RegExp</td>
+			      
+			      <td>List item</td>
+
+			      <td>Snippet</td>
+			      <td>Status</td>
+			  </tr>
+			  </thead>
+			    <tbody>
+			    {% for item in object.items.all %}
+			  		<tr>
+			  			<td><a href="{{item.get_absolute_url}}"> {{item.name}}</a></td>
+			  			<td>{{item.title}}</td>
+			  			
+			  			<td>{{item.input_type}}</td>
+			  			<td>{{item.regexp}}</td>
+			  			
+			  			<td>
+				  			{% for each in item.lists.all %}
+							    <li>{{each.name}}</li>
+							{% endfor %}
+
+			  			</td>
+			  			<td>
+			  				{% if item.snippet %}
+			  				<a href="{{item.snippet.get_absolute_url}}">{{item.snippet}}</a>
+			  				{% endif %}
+			  			</td>
+			  			<td><i class="fa {% if object.status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
+			  		</tr>
+			  	{% empty %}
+			  		No Performing Information
+			  	{% endfor %}
+			  </tbody>
+            </table>
+        </div>
+    </div>
+
+   
+
+
+</dev>
+
+{% endblock content %}

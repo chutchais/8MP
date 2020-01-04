@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}
+8AM - Main page
+{% endblock %}
+
+
+
+
+{% block content %}
+<main role="main">
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+
+
+      <div class="container">
+
+        <!-- Example row of columns -->
+        <h1>System Configurations</h1>
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>Product</h3>
+            <p>Product maintenance</p>
+            <p><a class="btn btn-info" href="/product/" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>Operation</h3>
+            <p>Operation maintenance</p>
+            <p><a class="btn btn-info" href="/operation/" role="button">View detail &raquo;</a></p>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>Routing</h3>
+            <p>Routing maintenance</p>
+            <p><a class="btn btn-info" href="/routing/" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>WorkOrder</h3>
+            <p>WorkOrder maintenance</p>
+            <p><a class="btn btn-info" href="/workorder/" role="button">View details &raquo;</a></p>
+          </div>
+
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>Parameter</h3>
+            <p>Parameter maintenance</p>
+            <p><a class="btn btn-info" href="/parameter/" role="button">View details &raquo;</a></p>
+          </div>
+
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>Parameter Item</h3>
+            <p>Parameter Item maintenance</p>
+            <p><a class="btn btn-info" href="/item/" role="button">View details &raquo;</a></p>
+          </div>
+
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>Snippet</h3>
+            <p>Snippet Code maintenance</p>
+            <p><a class="btn btn-info" href="/snippet/" role="button">View details &raquo;</a></p>
+          </div>
+
+         
+        </div>
+
+        <h1>System Transactions Data</h1>
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>Unit Serial Number</h3>
+            <p>Unit serial number transaction data</p>
+            <p><a class="btn btn-success" href="/serialnumber/" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>Performing</h3>
+            <p>Performing transaction data</p>
+            <p><a class="btn btn-success" href="/performing/" role="button">View details &raquo;</a></p>
+          </div>
+
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>Cache Data</h3>
+            <p>Cache transaction data</p>
+            <p><a class="btn btn-success" href="/cache/" role="button">View details &raquo;</a></p>
+          </div>
+
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>Parametric Data</h3>
+            <p>Parametric transaction data</p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+
+        </div>
+
+        <h1>Administrator</h1>
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <h3>Admin page</h3>
+            <p>For administrator</p>
+            <p><a class="btn btn-warning" href="/admin/" role="button">View details &raquo;</a></p>
+          </div>
+          
+
+        </div>
+
+      </div> <!-- /container -->
+      </main>
+{% endblock content %}
