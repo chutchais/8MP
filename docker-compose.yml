@@ -1,0 +1,27 @@
+# docker-compose.yml
+
+version: '3.3'
+
+services:
+  wmp-redis:
+    container_name: wmp-redis
+    image: redis:5.0.6-alpine
+    volumes:
+      - cache_data:/data
+    ports:
+      - 6379:6379
+
+  cache-server:
+    build:
+      context: ./cache
+    command: python cache.py
+    container_name: cache-server
+    depends_on:
+      - wmp-redis
+    environment:
+      - REDIS_URL=redis://wmp-redis:6379/0
+    ports:
+      - 8001:5000
+
+volumes:  
+  cache_data:

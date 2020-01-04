@@ -22,7 +22,7 @@ generated_on = str(datetime.datetime.now())
 app = Flask(__name__)
 
 #'tid-redis'
-db = redis.StrictRedis('localhost', 6379, charset="utf-8", decode_responses=True)
+db = redis.StrictRedis('wmp-redis', 6379, charset="utf-8", decode_responses=True)
 # db = redis.StrictRedis('192.168.10.102', 6379, charset="utf-8", decode_responses=True)
 # db = redis.StrictRedis('tid-redis', 6379, charset="utf-8", decode_responses=True)
 
