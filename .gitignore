@@ -2,3 +2,5 @@ wmp/env
 wmp/db.sqlite3
 wmp/staticfiles
 wmp/*.py[cod]
+
+cache/env
