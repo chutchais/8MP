@@ -181,7 +181,7 @@
 		  			<td>{{perform.start_time|timesince:perform.stop_time}}</td>
 		  			
 		  			<td>
-		  				<i class="fa {% if object.result  %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.result %} true  {% else %} false {% endif %}" aria-hidden="true"></i>
+		  				<i class="fa {% if perform.result  %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if perform.result %} true  {% else %} false {% endif %}" aria-hidden="true"></i>
 		  			</td>
 		  			<td>{{perform.remark}}</td>
 		  		</tr>

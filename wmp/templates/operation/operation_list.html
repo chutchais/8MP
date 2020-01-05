@@ -45,6 +45,7 @@
           <th scope="col">Title</th>
           <th scope="col">Type</th>
           <th scope="col">Customer Name</th>
+          <th scope="col">Wip</th>
          <th scope="col">Modify Date</th>
          <th scope="col">Status</th>
         </tr>
@@ -57,6 +58,7 @@
             <td>{{object.title}} </td>
             <td>{{object.operation_type}}</td>
             <td>{{object.customer_name}}</td>
+            <td>{{object.wip}}</td>
             <td>{{object.modified_date}}</td>
             <td><i class="fa {% if object.status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
           </tr>

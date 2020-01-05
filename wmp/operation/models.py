@@ -53,8 +53,9 @@ class Operation(models.Model):
 	def get_absolute_url(self):
 		return reverse('operation:detail', kwargs={'slug': self.slug})
 
-	# def wip(self):
-	# 	return self.currentoperation.count()
+	@property
+	def wip(self):
+		return self.wips.count()
 
 
 def create_operation_slug(instance, new_slug=None):

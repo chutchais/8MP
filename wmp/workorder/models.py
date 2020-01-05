@@ -59,6 +59,12 @@ class WorkOrder(models.Model):
 		return self.serialnumbers.count()
 	registered.fget.short_description = "Registered"
 
+	@property
+	def wip(self):
+		# c = self.weight + self.runner
+		return self.serialnumbers.filter(wip=True).count()
+	wip.fget.short_description = "On WIP"
+
 def create_workorder_slug(instance, new_slug=None):
     default_slug = '%s' % (instance.name)
     slug = slugify(default_slug)

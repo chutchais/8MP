@@ -51,6 +51,7 @@
           <th scope="col">RegExp</th>
           <th scope="col">Qty</th>
           <th scope="col">Registered</th>
+          <th scope="col">On WIP</th>
          <th scope="col">Modify Date</th>
          <th scope="col">Status</th>
         </tr>
@@ -70,6 +71,7 @@
             <td>{{object.regexp}}</td>
             <td>{{object.qty}}</td>
             <td>{{object.registered}}</td>
+            <td>{{object.wip}}</td>
             <td>{{object.modified_date}}</td>
             <td><i class="fa {% if object.status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
           </tr>
