@@ -4,3 +4,5 @@ wmp/staticfiles
 wmp/*.py[cod]
 
 cache/env
+
+wmp/*/__pycache__/
