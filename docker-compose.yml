@@ -9,6 +9,8 @@ services:
   wmp-redis:
     container_name: wmp-redis
     image: redis:5.0.6-alpine
+    networks:
+      - main
     volumes:
       - cache_data:/data
     ports:
@@ -21,6 +23,8 @@ services:
     container_name: cache-server
     depends_on:
       - wmp-redis
+    networks:
+      - main
     # environment:
     #   - REDIS_URL=redis://wmp-redis:6379/0
     ports:
@@ -30,11 +34,15 @@ services:
     container_name: wmp-server
     restart: always
     build: ./wmp
+    depends_on:
+      - cache-server
     expose:
       - "8000"
     links:
       - postgres:postgres
       # - redis:redis
+    networks:
+      - main
     volumes:
       - web-django:/usr/src/app
       - web-static:/staticfiles
@@ -63,3 +71,6 @@ volumes:
   web-static:
   pgdata:
   cache-server:
+
+networks:
+  main:

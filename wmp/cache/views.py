@@ -12,20 +12,28 @@ def getcache(request,key=''):
 
 
 def get_cache(key):
-	import urllib3
-	import os
-	http = urllib3.PoolManager()
-	# return os.getenv('CACHE_SERVER_URL', 'test')
-	import os
-	# retun case_url
-	cacheurl = os.getenv('CACHE_SERVER_URL', 'test')
-	url = '%s/%s' % (cacheurl,key)
-	# return url
-	# url = '%s/%s' % ('http://127.0.0.1:8001',key)
-	# 'CACHE_SERVER_URL'
-	# print (url)
-	r = http.request('GET',url )
-	if r.status == 200:
-		return r.data.decode("utf-8")
-	else:
+	if key == None :
 		return ''
+	import redis
+	db = redis.StrictRedis('wmp-redis', 6379, charset="utf-8", decode_responses=True)
+	if not db.exists(key): #does the hash exist?
+		return ''
+	data = db.get(key)
+	return data
+	# # import urllib3
+	# # import os
+	# # http = urllib3.PoolManager()
+	# # return os.getenv('CACHE_SERVER_URL', 'test')
+	# # import os
+	# # # retun case_url
+	# cacheurl = os.getenv('CACHE_SERVER_URL', 'test')
+	# url = '%s/%s' % (cacheurl,key)
+	# # return url
+	# # # url = '%s/%s' % ('http://127.0.0.1:8001',key)
+	# # # 'CACHE_SERVER_URL'
+	# # # print (url)
+	# r = http.request('GET',url )
+	# if r.status == 200:
+	# 	return r.data.decode("utf-8")
+	# else:
+	# 	return ''
