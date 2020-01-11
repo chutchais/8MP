@@ -62,6 +62,8 @@ services:
     container_name: postgres-server
     ports:
       - "5433:5432"
+    networks:
+      - main
     volumes:
       - pgdata:/var/lib/postgresql/data/
 
