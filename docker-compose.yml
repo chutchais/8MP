@@ -51,6 +51,7 @@ services:
       - CACHE_SERVER_URL=http://cache-server:8001
       # DEBUG: 'False'
     command: gunicorn wmp.wsgi:application -w 2 -b :8000
+    # command: python manage.py runserver 0.0.0.0:8000
     ports:
       - 8000:8000
 
