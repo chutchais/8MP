@@ -8,6 +8,26 @@ from workorder.models import WorkOrder
 from serialnumber.models import SerialNumber
 from operation.models import Operation
 from routing.models import Routing,RoutingDetail
+from django.contrib.auth.models import User
+from user_profile.models import Profile,AccessOperation
+
+class UserType(DjangoObjectType):
+    class Meta:
+        model = User
+
+class OperationType(DjangoObjectType):
+    class Meta:
+        model = Operation
+        interfaces = (relay.Node, )
+        
+class ProfileType(DjangoObjectType):
+    class Meta:
+        model = Profile
+
+
+class AccessOperationType(DjangoObjectType):
+    class Meta:
+        model = AccessOperation
 
 
 class RoutingType(DjangoObjectType):
@@ -20,10 +40,7 @@ class RoutingDetailType(DjangoObjectType):
         model = RoutingDetail
         # interfaces = (relay.Node, )
 
-class OperationType(DjangoObjectType):
-    class Meta:
-        model = Operation
-        interfaces = (relay.Node, )
+
 
 class ProductType(DjangoObjectType):
     class Meta:
@@ -46,6 +63,20 @@ class SerialNumberType(DjangoObjectType):
 # ------------------------------------------------
 
 class Query(graphene.ObjectType):  
+
+    # User
+    user     = graphene.Field(UserType,
+                                user=graphene.String())
+    users    = graphene.List(UserType)#DjangoFilt,erConnectionField(ProductType)#
+    def resolve_user(self, info, **kwargs):
+          user  = kwargs.get('user')
+          if user is not None:
+              return User.objects.get(user=user)
+          return None
+
+    def resolve_users(self,info,**kwargs):
+        return User.objects.all()
+
     # Operation
     operation     = graphene.Field(OperationType,
                                 id=graphene.Int(),
@@ -65,6 +96,32 @@ class Query(graphene.ObjectType):
           return None
     def resolve_operations(self,info,**kwargs):
         return Operation.objects.all()
+
+    # User prfile
+    profile     = graphene.Field(ProfileType,
+                                user=graphene.String())
+    profiles    = graphene.List(ProfileType)#DjangoFilt,erConnectionField(ProductType)#
+    def resolve_profile(self, info, **kwargs):
+          user  = kwargs.get('user')
+          if user is not None:
+              return Profile.objects.get(user=user)
+          return None
+
+    def resolve_profiles(self,info,**kwargs):
+        return Profile.objects.all()
+
+
+    # Profile Access
+    accessoperation     = graphene.Field(AccessOperationType,
+                                user=graphene.String())
+    accessoperations     = graphene.List(AccessOperationType)
+    def resolve_accessoperation(self,info,**kwargs):
+        user  = kwargs.get('user')
+        if user is not None:
+            return AccessOperation.objects.get(user=user)
+        return None
+    def resolve_accessoperations(self,info,**kwargs):
+        return AccessOperation.objects.all()
 
     # Routing
     routing     = graphene.Field(RoutingType,
@@ -149,19 +206,15 @@ class Query(graphene.ObjectType):
 
 # Serial number
     serialnumber   = graphene.Field(SerialNumberType,
-                                id=graphene.Int(),
-                                name=graphene.String(),
+                                number=graphene.String(),
                                 slug=graphene.String())
     serialnumbers    = graphene.List(SerialNumberType,
                                 workorder = graphene.String() )
     def resolve_serialnumber(self, info, **kwargs):
-          id    = kwargs.get('id')
-          name  = kwargs.get('name')
+          number  = kwargs.get('number')
           slug  = kwargs.get('slug')
-          if id is not None:
-              return SerialNumber.objects.get(pk=id)
-          if name is not None:
-              return SerialNumber.objects.get(name=name)
+          if number is not None:
+              return SerialNumber.objects.get(number=number,wip=True)
           if slug is not None:
               return SerialNumber.objects.get(slug=slug)
           return None
