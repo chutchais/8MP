@@ -12,7 +12,7 @@ class ParametricSerializer(serializers.ModelSerializer):
 	# item = ItemSerializer(read_only=True)
 	class Meta:
 		model = Parametric
-		fields = ['performing','item','value','created_date']
+		fields = ['performing','item','value','created_date','user','url']
 
 # from rest_framework.serializers import (
 # 	ModelSerializer,

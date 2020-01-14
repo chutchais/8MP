@@ -16,7 +16,7 @@ class SerialNumberSerializer(serializers.ModelSerializer):
 				'registered_date','routing','current_operation','last_operation',
 				'last_modified_date','last_result','finished_date','wip',
 				'perform_start_date','perform_operation','perform_resource','status','slug','url',
-				'parent','unit_type']
+				'parent','unit_type','user']
 
 		extra_kwargs = {
 			'url': {'lookup_field': 'slug'}

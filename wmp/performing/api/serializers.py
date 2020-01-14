@@ -14,7 +14,7 @@ class PerformingSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Performing
 		fields = ['uid','sn','operation','resource_name','interval',
-				'start_time','stop_time','result','remark','created_date','url']
+				'start_time','stop_time','result','remark','created_date','url','user']
 
 class PerformingUrlSerializer(serializers.ModelSerializer):
 	class Meta:

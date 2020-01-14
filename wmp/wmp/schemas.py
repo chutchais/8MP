@@ -18,7 +18,7 @@ class UserType(DjangoObjectType):
 class OperationType(DjangoObjectType):
     class Meta:
         model = Operation
-        interfaces = (relay.Node, )
+        # interfaces = (relay.Node, )
         
 class ProfileType(DjangoObjectType):
     class Meta:
