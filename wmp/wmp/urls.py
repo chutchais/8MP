@@ -52,6 +52,7 @@ urlpatterns = [
     url(r'^item/',include(('item.urls','item'),namespace='item')),
     url(r'^operation/',include(('operation.urls','operation'),namespace='operation')),
     url(r'^parameter/',include(('parameter.urls','parameter'),namespace='parameter')),
+    url(r'^parametric/',include(('parametric.urls','parametric'),namespace='parametric')),
     url(r'^performing/',include(('performing.urls','performing'),namespace='performing')),
     url(r'^product/',include(('product.urls','product'),namespace='product')),
     url(r'^routing/',include(('routing.urls','routing'),namespace='routing')),

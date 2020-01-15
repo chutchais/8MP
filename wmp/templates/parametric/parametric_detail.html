@@ -1,0 +1,64 @@
+
+{% extends "base.html" %}
+{% load system_tag %}
+
+
+{% block title %}
+	Parametric Detail
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+
+		<h1>Parametric Detail : {{ object.item.name }}</h1>
+
+		<a href="../">Back to Parametric list</a><br>
+		<i>Created date : {{object.created_date}} -- {{object.user}}</i><br>
+    <div class="row">
+          <div class="col-md-8">
+            <h4>Basic Information</h4>
+            <table class="table">
+			  
+			  <tbody>
+			    <tr>
+			      <td>Item</td>
+			      <td>{{object.item.name}}</td>
+			    </tr>
+
+			    <tr>
+			      <td>Value</td>
+			      <td>{{object.value}}</td>
+			    </tr>
+
+			    <tr>
+			      <td>Serial Number</td>
+			      <td>{{object.performing.sn.number}}</td>
+			    </tr>
+
+			    <tr>
+			      <td>Operation</td>
+			      <td>{{object.performing.operation}}</td>
+			    </tr>
+
+			    <tr>
+			      <td>Created Date</td>
+			      <td>{{object.created_date}}</td>
+			    </tr>
+
+			    <tr>
+			      <td>User</td>
+			      <td>{{object.user}}</td>
+			    </tr>
+			  </tbody>
+			</table>
+          </div>
+    </div> 
+
+    
+
+   
+
+
+</dev>
+
+{% endblock content %}
