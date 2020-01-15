@@ -98,6 +98,36 @@
           </div>
     </div> 
 
+    <div class="row">
+    	<h4>Parametric Usage</h4>
+    	<table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Value</th>
+          <th scope="col">Serial number</th>
+          <th scope="col">Operation</th>
+         <th scope="col">Created Date</th>
+        </tr>
+      </thead>
+      <tbody>
+		
+    		{% for p in object.parametrics.all|slice:":100" %}
+          <tr>
+            <td><a href="{{p.get_absolute_url}}">{{p.item.name}}</a> </td>
+            <td>{{p.value}} </td>
+            
+            <td><a href="{{p.performing.get_absolute_url}}">{{p.performing.sn}}</a></td>
+            <td>{{p.performing.operation}}</td>
+            <td>{{p.created_date}}</td>
+           
+          </tr>
+    		{% endfor %}
+      </tbody>
+    </table>
+
+    </div>
+
     
 
    
