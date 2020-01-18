@@ -45,6 +45,8 @@
           <th scope="col">Value</th>
           <th scope="col">Serial number</th>
           <th scope="col">Operation</th>
+          <th scope="col">Resource</th>
+          <th scope="col">User</th>
          <th scope="col">Created Date</th>
         </tr>
       </thead>
@@ -57,6 +59,8 @@
             
             <td><a href="{{object.performing.get_absolute_url}}">{{object.performing.sn}}</a></td>
             <td>{{object.performing.operation}}</td>
+            <td>{{object.performing.resource_name}}</td>
+            <td>{{object.user}}</td>
             <td>{{object.created_date}}</td>
            
           </tr>

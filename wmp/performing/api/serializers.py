@@ -14,12 +14,12 @@ class PerformingSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Performing
 		fields = ['uid','sn','operation','resource_name','interval',
-				'start_time','stop_time','result','remark','created_date','url','user']
+				'start_time','stop_time','result','remark','created_date','url','user','id']
 
 class PerformingUrlSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Performing
-		fields = ['uid','url']
+		fields = ['uid','url','id']
 
 # from rest_framework.serializers import (
 # 	ModelSerializer,
