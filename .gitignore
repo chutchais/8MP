@@ -5,4 +5,7 @@ wmp/*.py[cod]
 
 cache/env
 
-wmp/*/__pycache__/
+wmp/*/__pycache__/*.py[cod]
+*/*/*/__pycache__/*.py[cod]
+*/*/__pycache__/*.py[cod]
+*/__pycache__/*.py[cod]
