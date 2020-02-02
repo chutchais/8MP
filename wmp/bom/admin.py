@@ -21,7 +21,7 @@ class BomResource(resources.ModelResource):
 
 class BomDetailInline(admin.TabularInline):
     model = Bom_Detail
-    fields = ['pn','rd','customer_pn','title','critical']
+    fields = ['rd','pn','customer_pn','pn_type','title','critical']
     extra = 0
     show_change_link = True
     verbose_name = 'Bom detail'
@@ -71,7 +71,7 @@ class AlternatePartInline(admin.TabularInline):
 
 class BomDetailAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelAdmin):
     search_fields = ['rd','pn','bom__name','description','category1','category2','customer_pn']
-    list_filter = ['bom__name','category1','category2','customer_pn']
+    list_filter = ['pn_type','category1','category2']
     list_display = ('rd','pn','pn_type','customer_pn','bom','description','category1','category2','critical')
     # list_editable = ('color','move_performa')
     readonly_fields = ('user','slug','created_date','modified_date')

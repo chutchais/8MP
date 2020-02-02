@@ -7,6 +7,8 @@ from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.admin import ImportExportActionModelAdmin
 
+from assembly.models import Assembly_Usage
+
 
 class RoutingResource(resources.ModelResource):
     class Meta:
@@ -108,6 +110,16 @@ class RejectInline(admin.TabularInline):
     show_change_link = True
     verbose_name_plural = 'Routing - Reject'
 
+    # Assembly_Usage
+class AssemblyInline(admin.TabularInline):
+    model = Assembly_Usage
+    extra = 0
+    fields = ['ordered','assembly','title','status','created_date']
+    readonly_fields =['created_date']
+    autocomplete_fields =['assembly']
+    can_delete = True
+    show_change_link = True
+    verbose_name_plural = 'Routing - Assembly'
 
 class RoutingDetailResource(resources.ModelResource):
     class Meta:
@@ -135,7 +147,7 @@ class RoutingDetailAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,adm
         ('System Information',{'fields':[('user','created_date'),'modified_date','slug']})
     ]
     resource_class      = RoutingDetailResource
-    inlines = [AcceptInline,RejectInline,RoutingDetailParameterInline,NextOperationInline,HookInline]
+    inlines = [AcceptInline,RejectInline,RoutingDetailParameterInline,NextOperationInline,HookInline,AssemblyInline]
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user

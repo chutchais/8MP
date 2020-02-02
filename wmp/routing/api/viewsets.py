@@ -18,6 +18,10 @@ from parameter.models import Parameter
 from parameter.api.serializers import ParameterSerializer
 
 
+from assembly.models import Assembly_Usage
+from assembly.api.serializers import AssemblyUsageSerializer
+
+
 class RoutingViewSet(viewsets.ModelViewSet):
 	queryset = Routing.objects.all()
 	serializer_class = RoutingSerializer
@@ -90,6 +94,13 @@ class RoutingDetailViewSet(viewsets.ModelViewSet):
 					context={'request': request}, many=True)
 		return Response(serializer.data)
 
+	@detail_route()
+	def assemblys(self, request, pk=None):
+		routingdetail = self.get_object()
+		serializer = AssemblyUsageSerializer(routingdetail.assembly_usages.all(), 
+					context={'request': request}, many=True)
+		return Response(serializer.data)
+
 
 class RoutingDetailNextViewSet(viewsets.ModelViewSet):
 	queryset = RoutingDetailNext.objects.all()
@@ -123,6 +134,13 @@ class RoutingDetailHookViewSet(viewsets.ModelViewSet):
 class RoutingDetailParameterViewSet(viewsets.ModelViewSet):
 	queryset = RoutingDetailParameterSet.objects.all()
 	serializer_class = RoutingDetailParameterSetSerializer
+	filter_backends = (filters.SearchFilter,filters.OrderingFilter,DjangoFilterBackend)
+	search_fields = ('title','status')
+	filter_fields = ('title','status')
+
+class RoutingDetailAssemblyUsageViewSet(viewsets.ModelViewSet):
+	queryset = Assembly_Usage.objects.all()
+	serializer_class = AssemblyUsageSerializer
 	filter_backends = (filters.SearchFilter,filters.OrderingFilter,DjangoFilterBackend)
 	search_fields = ('title','status')
 	filter_fields = ('title','status')

@@ -17,7 +17,7 @@ class ProductSerializer(serializers.ModelSerializer):
 		fields = ['name','pn','rev','routing',
 				'regexp','fg_pn','fg_rev',
 				'title','description','category1','category2',
-				'created_date','modified_date','status','slug','url']
+				'created_date','modified_date','status','slug','url','bom']
 		lookup_field = 'slug'
 		extra_kwargs = {
 			'url': {'lookup_field': 'slug'}

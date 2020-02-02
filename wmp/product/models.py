@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
 from routing.models import Routing
+from bom.models import Bom
 
 ACTIVE='A'
 DEACTIVE='D'
@@ -50,6 +51,9 @@ class Product(models.Model):
 	modified_date 		= models.DateTimeField(blank=True, null=True,auto_now=True)
 	user 				= models.ForeignKey(settings.AUTH_USER_MODEL,
 							on_delete=models.SET_NULL,blank=True,null=True)
+	bom 				= models.ForeignKey(Bom,
+							on_delete=models.SET_NULL,blank=True, null=True,
+							verbose_name='Bom Name',)
 	
 	def __str__(self):
 		return self.name

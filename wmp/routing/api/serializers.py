@@ -33,11 +33,13 @@ class RoutingDetailSerializer(serializers.ModelSerializer):
 	next_code   = HyperlinkedRelatedField(many=True,read_only=True,view_name='routingdetailnext-detail')
 	parameter   = HyperlinkedRelatedField(many=True,read_only=True,view_name='parameter-detail')
 	hooks   	= HyperlinkedRelatedField(many=True,read_only=True,view_name='routingdetailhook-detail')
+	assembly_usages   	= HyperlinkedRelatedField(many=True,read_only=True,
+						view_name='assembly_usage-detail',lookup_field='slug')
 	class Meta:
 		model = RoutingDetail
 		fields =  ['operation','routing','position','title','description',
 				'category1','category2','parameter','next_pass','next_fail',
-				'accept_code','reject_code','next_code','hooks','status','url','slug']
+				'accept_code','reject_code','next_code','hooks','assembly_usages','status','url','slug']
 
 
 

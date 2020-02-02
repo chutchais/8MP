@@ -18,8 +18,12 @@ from symptom.api.viewsets import (SymptomCodeViewSet,
 from workorder.api.viewsets import WorkorderViewSet
 from performing.api.viewsets import PerformingViewSet
 from parametric.api.viewsets import ParametricViewSet
+from assembly.api.viewsets import AssemblyViewSet,AssemblyDetailViewSet,AssemblyUsageViewSet
 
 router = routers.DefaultRouter()
+router.register(r'assembly', AssemblyViewSet)
+router.register(r'assembly-detail', AssemblyDetailViewSet)
+router.register(r'assembly-usage', AssemblyUsageViewSet)
 router.register(r'bom', BomViewSet)
 router.register(r'bom-detail', BomDetailViewSet)
 router.register(r'bom-alternate', BomAlternateViewSet)

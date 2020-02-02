@@ -86,7 +86,8 @@ pre_save.connect(pre_save_bom_receiver, sender=Bom)
 
 PART_TYPE_CHOICE = (
 		('COMPONENT','Component'),
-		('MODULE','Module with serial number')
+		('MODULE','Module with serial number'),
+		('BUILD','Inernal Build with serial number')
 	)
 
 class Bom_Detail(models.Model):
