@@ -1,30 +1,39 @@
 from django.shortcuts import render
-
-# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-# from django.contrib.staticfiles.templatetags.staticfiles import static
-# from django.http import HttpResponse
-# from django.urls import reverse_lazy
-# from django.shortcuts import redirect
-# import os.path
-# from django.conf import settings
-
-
-# from django.db.models import Q,F
-# from django.shortcuts import get_object_or_404
-from .models import Bom
 from django.views.generic import DetailView,CreateView,UpdateView,DeleteView,ListView
+from django.db.models import Q,F
+
+from .models import Bom,Bom_Detail
 
 class BomListView(ListView):
 	model = Bom
+	paginate_by = 100
+	def get_queryset(self):
+		query = self.request.GET.get('q')
+		if query :
+			return Bom.objects.filter(Q(name__icontains=query) |
+									Q(title__icontains=query) |
+									Q(pn__name__icontains=query) |
+									Q(fg_pn__name__icontains=query) |
+									Q(description__icontains=query) ).order_by('-modified_date')
+		return Bom.objects.all().order_by('-modified_date')
 
 class BomDetailView(DetailView):
 	model = Bom
-	# template_name = 'crm/bookingfile_detail.html'
 
-	# def get_context_data(self, **kwargs):
-	# 	context = super(BookingFileDetailView, self).get_context_data(**kwargs)
-	# 	# context['now'] = timezone.now()
-	# 	print (kwargs)
-	# 	print(self.kwargs.get('slug'))
-	# 	return context
 
+
+class BomDetailListView(ListView):
+	model = Bom_Detail
+	paginate_by = 100
+	def get_queryset(self):
+		query = self.request.GET.get('q')
+		if query :
+			return Bom_Detail.objects.filter(Q(rd__icontains=query) |
+									Q(title__icontains=query) |
+									Q(pn__icontains=query) |
+									Q(customer_pn__icontains=query) |
+									Q(description__icontains=query) ).order_by('-modified_date')
+		return Bom_Detail.objects.all().order_by('-modified_date')
+
+class BomDetailDetailView(DetailView):
+	model = Bom_Detail

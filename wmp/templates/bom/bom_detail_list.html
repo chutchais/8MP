@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}8AM - BOM list{% endblock %}
+{% block title %}8AM - BOM Item list{% endblock %}
 
 {% block content %}
 
-	<h1>BOM List</h1>
+	<h1>BOM Item List</h1>
   <a href="../"><i class="fa fa-home" style="font-size:24px;color:blue" aria-hidden="true"></i></a>
 	<div class="wrapper">	
 
 
     <form class='form' method='GET' action='.'>
-                        <input type='text' id='search' placeholder="Search bom" name="q" value='{{ request.GET.q}}'>
+                        <input type='text' id='search' placeholder="Search bom item" name="q" value='{{ request.GET.q}}'>
                         <button class='btn btn-default' type='submit'>Search</button>
-                        <a href="{% url 'bom:list'  %}">Clear result</a>
+                        <a href="{% url 'bom:item-list'  %}">Clear result</a>
     </form>
 
     {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} record(s). <br>
@@ -41,13 +41,11 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th scope="col">Name</th>
+          <th scope="col">Ref Des</th>
           <th scope="col">Part number</th>
-          <th scope="col">Part Rev</th>
-          <th scope="col">FG Part</th>
-          <th scope="col">FG Part Rev</th>
-          <th scope="col">Total item</th>
-          
+          <th scope="col">Customer Part</th>
+          <th scope="col">Part Type</th>
+
           <th scope="col">Title</th>
          <th scope="col">Created Date</th>
          <th scope="col">Modify Date</th>
@@ -58,12 +56,11 @@
 		
     		{% for object in object_list %}
           <tr>
-            <td><a href="{{object.get_absolute_url}}">{{object}}</a> </td>
+            <td><a href="{{object.get_absolute_url}}">{{object.rd}}</a></td>
             <td>{{object.pn}} </td>
-            <td>{{object.rev}} </td>
-            <td>{{object.fg_pn}} </td>
-            <td>{{object.fg_rev}} </td>
-            <td>{{object.items_count}} </td>
+         
+            <td>{{object.customer_pn}} </td>
+            <td>{{object.pn_type}} </td>
             <td>{{object.title}} </td>
             
             <td>{{object.created_date}}</td>

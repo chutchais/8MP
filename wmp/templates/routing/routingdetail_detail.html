@@ -110,7 +110,15 @@
 			    
 			  </tbody>
 			</table>
-          </div>
+		</div>
+			<div class="col-md-4">
+			            <h4>Assembly Profile</h4>
+			            {% for assembly in object.assembly_usages.all|dictsort:"modified_date" %}
+			            	<li><a href="{{assembly.assembly.get_absolute_url}}">{{assembly.assembly}}</a></li>
+			            {% endfor %}
+			    </div>
+
+          
           
           </div>
 

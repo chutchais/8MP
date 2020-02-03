@@ -73,6 +73,32 @@ class AssemblyAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.Mo
 admin.site.register(Assembly,AssemblyAdmin)
 
 
+class AssemblyDetailAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelAdmin):
+    search_fields = ['assembly__name','title','description','category1','category2']
+    list_filter = ['category1','category2','status']
+    list_display = ('assembly','part','title','critical','category1','category2','status','user')
+    readonly_fields = ('user','slug','created_date','modified_date')
+    autocomplete_fields = ['assembly','part']
+    save_as = True
+    save_as_continue = True
+    save_on_top =True
+
+    fieldsets = [
+        ('Basic Information',{'fields': ['assembly','part','title','description','category1','category2','status']}),
+        ('Property Validation Information',{'fields': ['datecode_regexp','lotcode_regexp',
+                                                'supplycode_regexp','sn_regexp']}),
+        ('System Information',{'fields':[('user','created_date'),'modified_date','slug']})
+    ]
+    # resource_class      = AssemblyResource
+    # inlines             = [AssemblyDetailInline]
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super(AssemblyDetailAdmin, self).save_model(request, obj, form, change)
+
+admin.site.register(Assembly_Detail,AssemblyDetailAdmin)
+
+
 
 class AssemblyUsageAdmin(admin.ModelAdmin):
     search_fields = ['assembly__name','title','description','category1','category2']

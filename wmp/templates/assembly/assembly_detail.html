@@ -9,7 +9,7 @@
 {% block content %}
 	<div class="wrapper">	
 		<h1>Name : {{object.name}}</h1> 
-		<a href="../">Back to BOM list</a><br>
+		<a href="../">Back to Assembly list</a><br>
 		<i>Created date : {{object.created_date}} -- {{object.created_user}}</i><br>
 		<i>Modified date : {{object.modified_date}}</i>
 
@@ -19,22 +19,6 @@
 					<table class="table">
 					  <tbody>
 					  	<tr>
-					  		<td>Part number</td>
-					      	<td>{{object.pn}}</td>
-					    </tr>
-					    <tr>
-					  		<td>Part Rev</td>
-					      	<td>{{object.rev}}</td>
-					    </tr>
-					    <tr>
-					  		<td>FG Part number</td>
-					      	<td>{{object.fg_pn}}</td>
-					    </tr>
-					    <tr>
-					  		<td>FG Part Rev</td>
-					      	<td>{{object.fg_rev}}</td>
-					    </tr>
-					  	<tr>
 					  		<td>Title</td>
 					      	<td>{{object.title}}</td>
 					    </tr>
@@ -43,7 +27,10 @@
 					      	<td>{{object.description|linebreaks}}</td>
 					    </tr>
 
-					    
+					    <tr>
+					  		<td>Product</td>
+					      	<td><a href="{{object.product.get_absolute_url}}">{{object.product}}</a></td>
+					    </tr>
 
 
 					    <tr>
@@ -59,22 +46,26 @@
 					</table>
 				</div>
 
-				
+				<div class="col-md-6">
+			            <h4>Assembly Usage</h4>
+			            {% for usage in object.assembly_usages.all|dictsort:"modified_date" %}
+			            	<li><a href="{{usage.routingdetail.get_absolute_url}}">{{usage.routingdetail}}</a></li>
+			            {% endfor %}
+			    </div>
 
 		</div>
 
 		<div class="row">
 			<div class="col-md-12">
-				<h4>BOM Items</h4>
+				<h4>Assembly Items</h4>
 				<table class="table table-bordered">
 			      <thead>
 			        <tr>
-			          <th scope="col">Ref Des.</th>
-			          <th scope="col">Part number</th>
-			          <th scope="col">Title</th>
-			          <th scope="col">Customer PN</th>
+			          <th scope="col">Order</th>
+			          <th scope="col">Part</th>
 			          <th scope="col">Type</th>
-			          <th scope="col">Critial</th>
+			          <th scope="col">Critical</th>
+			          <th scope="col">Title</th>
 			         <th scope="col">Modify Date</th>
 			         <th scope="col">Status</th>
 			        </tr>
@@ -82,14 +73,13 @@
       				<tbody>
 
 				
-				{% for item in object.items.all|dictsort:"rd" %}
+				{% for item in object.assembly_details.all|dictsort:"ordered" %}
 			           <tr>
-			           		<td><a href="{{item.get_absolute_url}}">{{item.rd}}</a></td>
-			           		<td>{{item.pn}}</td>
-			           		<td>{{item.title}}</td>
-			           		<td>{{item.customer_pn}}</td>
-			           		<td>{{item.pn_type}}</td>
+			           		<td>{{item.ordered}}</td>
+			           		<td><a href="{{item.part.get_absolute_url}}">{{item.part}}</a></td>
+			           		<td>{{item.part.pn_type}}</td>
 			           		<td><i class="fa {% if item.critial %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if item.critial %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
+			           		<td>{{item.title}}</td>
 			           		<td>{{item.modified_date}}</td>
 			           		<td><i class="fa {% if item.status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if item.status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
 			           </tr>

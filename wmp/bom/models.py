@@ -131,7 +131,7 @@ class Bom_Detail(models.Model):
 		return ('%s : %s' % (self.rd,self.pn))
 
 	def get_absolute_url(self):
-		return reverse('bom_detail:detail', kwargs={'slug': self.slug})
+		return reverse('bom:item-detail', kwargs={'slug': self.slug})
 
 def create_bom_detail_slug(instance, new_slug=None):
     # import datetime

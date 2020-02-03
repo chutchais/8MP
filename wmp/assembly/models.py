@@ -79,25 +79,33 @@ pre_save.connect(pre_save_assembly_receiver, sender=Assembly)
 from bom.models import Bom_Detail
 
 class Assembly_Detail(models.Model):
-	ordered 		= models.IntegerField(default=1)
-	assembly 		= models.ForeignKey(Assembly,
+	ordered 			= models.IntegerField(default=1)
+	assembly 			= models.ForeignKey(Assembly,
 								on_delete=models.CASCADE,
 								related_name='assembly_details')
-	part 			= models.ForeignKey(Bom_Detail,
+	part 				= models.ForeignKey(Bom_Detail,
 								on_delete=models.CASCADE,
 								related_name='assembly_details')
-	title 			= models.CharField(max_length=100,blank=True, null=True)
-	slug 			= models.SlugField(unique=True,blank=True, null=True)
-	description 	= models.TextField(max_length=255,blank=True, null=True)
-	category1 		= models.CharField(max_length=50,blank=True, null=True)
-	category2 		= models.CharField(max_length=50,blank=True, null=True)
-	critical 		= models.BooleanField(default=False)
-	status 			= models.CharField(max_length=1,choices=STATUS_CHOICES,default=ACTIVE)
-	created_date 	= models.DateTimeField(auto_now_add=True)
-	modified_date 	= models.DateTimeField(blank=True, null=True,auto_now=True)
-	user 			= models.ForeignKey(settings.AUTH_USER_MODEL,
-						on_delete=models.SET_NULL,
-						blank=True,null=True)
+	title 				= models.CharField(max_length=100,blank=True, null=True)
+	datecode_regexp 	= models.CharField(max_length=50,blank=True, null=True,
+								verbose_name='Datecode RegExp Validation')
+	lotcode_regexp 		= models.CharField(max_length=50,blank=True, null=True,
+								verbose_name='Lotcode RegExp Validation')
+	supplycode_regexp 	= models.CharField(max_length=50,blank=True, null=True,
+								verbose_name='Supplycode RegExp Validation')
+	sn_regexp 			= models.CharField(max_length=50,blank=True, null=True,
+								verbose_name='Serial number RegExp Validation')
+	slug 				= models.SlugField(unique=True,blank=True, null=True)
+	description 		= models.TextField(max_length=255,blank=True, null=True)
+	category1 			= models.CharField(max_length=50,blank=True, null=True)
+	category2 			= models.CharField(max_length=50,blank=True, null=True)
+	critical 			= models.BooleanField(default=False)
+	status 				= models.CharField(max_length=1,choices=STATUS_CHOICES,default=ACTIVE)
+	created_date 		= models.DateTimeField(auto_now_add=True)
+	modified_date 		= models.DateTimeField(blank=True, null=True,auto_now=True)
+	user 				= models.ForeignKey(settings.AUTH_USER_MODEL,
+							on_delete=models.SET_NULL,
+							blank=True,null=True)
 	
 	class Meta:
 		unique_together = ('assembly','part')

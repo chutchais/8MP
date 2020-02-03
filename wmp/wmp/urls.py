@@ -48,6 +48,8 @@ urlpatterns = [
     url(r'^api/token/refresh/$', TokenRefreshView.as_view(), name='token_refresh'),
 
     
+    url(r'^assembly/',include(('assembly.urls','assembly'),namespace='assembly')),
+    url(r'^bom/',include(('bom.urls','bom'),namespace='bom')),
     url(r'^cache/',include(('cache.urls','cache'),namespace='cache')),
     url(r'^item/',include(('item.urls','item'),namespace='item')),
     url(r'^operation/',include(('operation.urls','operation'),namespace='operation')),
