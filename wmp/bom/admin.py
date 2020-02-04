@@ -70,9 +70,9 @@ class AlternatePartInline(admin.TabularInline):
     verbose_name_plural = 'Alternative Parts'
 
 class BomDetailAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelAdmin):
-    search_fields = ['rd','pn','bom__name','description','category1','category2','customer_pn']
+    search_fields = ['rd','pn','bom__name','title','description','category1','category2','customer_pn']
     list_filter = ['pn_type','category1','category2']
-    list_display = ('rd','pn','pn_type','customer_pn','bom','description','category1','category2','critical')
+    list_display = ('rd','pn','pn_type','title','customer_pn','bom','description','category1','category2','critical')
     # list_editable = ('color','move_performa')
     readonly_fields = ('user','slug','created_date','modified_date')
     autocomplete_fields = ['bom']
@@ -81,7 +81,7 @@ class BomDetailAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.M
     save_on_top =True
 
     fieldsets = [
-        ('Basic Information',{'fields': ['rd','pn',('pn_type','critical'),'bom','description','category1','category2']}),
+        ('Basic Information',{'fields': ['rd','pn',('pn_type','critical'),'bom','title','description','category1','category2']}),
         ('Customer Information',{'fields': ['customer_pn']}),
         ('System Information',{'fields':[('user','created_date'),'modified_date','slug']})
     ]

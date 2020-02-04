@@ -23,6 +23,12 @@ class BomDetailSerializer(serializers.ModelSerializer):
 		'pn_type','title','slug','description',
 		'category1','category2','status','url','critical']
 
+class BomDetailUrlSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Bom_Detail
+		fields = ['rd','pn','customer_pn',
+		'pn_type','title']
+
 class BomAlternateSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Alternate_Part

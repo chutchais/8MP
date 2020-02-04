@@ -14,7 +14,7 @@ from routing.models import (Routing,RoutingDetail,RoutingDetailNext,
 
 from snippet.api.serializers import SnippetUrlSerializer
 from parameter.api.serializers import ParameterSerializer
-
+from assembly.api.serializers import AssemblyUsageUrlSerializer
 
 class RoutingSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -33,8 +33,9 @@ class RoutingDetailSerializer(serializers.ModelSerializer):
 	next_code   = HyperlinkedRelatedField(many=True,read_only=True,view_name='routingdetailnext-detail')
 	parameter   = HyperlinkedRelatedField(many=True,read_only=True,view_name='parameter-detail')
 	hooks   	= HyperlinkedRelatedField(many=True,read_only=True,view_name='routingdetailhook-detail')
-	assembly_usages   	= HyperlinkedRelatedField(many=True,read_only=True,
-						view_name='assembly_usage-detail',lookup_field='slug')
+	# assembly_usages   	= HyperlinkedRelatedField(many=True,read_only=True,
+	# 					view_name='assembly_usage-detail',lookup_field='slug')
+	assembly_usages = AssemblyUsageUrlSerializer(many=True,read_only=True)
 	class Meta:
 		model = RoutingDetail
 		fields =  ['operation','routing','position','title','description',
