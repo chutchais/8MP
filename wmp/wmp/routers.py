@@ -19,7 +19,7 @@ from workorder.api.viewsets import WorkorderViewSet
 from performing.api.viewsets import PerformingViewSet
 from parametric.api.viewsets import ParametricViewSet
 from assembly.api.viewsets import AssemblyViewSet,AssemblyDetailViewSet,AssemblyUsageViewSet
-from component.api.viewsets import ComponentViewSet,PartViewSet
+from component.api.viewsets import ModuleViewSet,ComponentViewSet
 
 router = routers.DefaultRouter()
 router.register(r'assembly', AssemblyViewSet)
@@ -33,8 +33,8 @@ router.register(r'defect-code', DefectCodeViewSet),
 router.register(r'defect', DefectViewSet),
 router.register(r'item', ItemViewSet)
 router.register(r'item-list', ItemListViewSet)
+router.register(r'module', ModuleViewSet)
 router.register(r'parameter', ParameterViewSet)
-router.register(r'part', PartViewSet)
 router.register(r'operation', OperationViewSet)
 router.register(r'parametric', ParametricViewSet)
 router.register(r'performing', PerformingViewSet)

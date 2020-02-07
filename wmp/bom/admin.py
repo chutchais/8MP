@@ -83,6 +83,7 @@ class BomDetailAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.M
     fieldsets = [
         ('Basic Information',{'fields': ['rd','pn',('pn_type','critical'),'bom','title','description','category1','category2']}),
         ('Customer Information',{'fields': ['customer_pn']}),
+        ('Packaging Information',{'fields': [('package_family','package'),'pin','thickness']}),
         ('System Information',{'fields':[('user','created_date'),'modified_date','slug']})
     ]
     resource_class      = BomDetailResource

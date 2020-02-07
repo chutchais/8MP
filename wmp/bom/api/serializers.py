@@ -19,9 +19,10 @@ class BomSerializer(serializers.ModelSerializer):
 class BomDetailSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Bom_Detail
-		fields = ['rd','pn','bom','customer_pn',
-		'pn_type','title','slug','description',
-		'category1','category2','status','url','critical']
+		fields = '__all__'
+		# fields = ['rd','pn','bom','customer_pn',
+		# 'pn_type','title','slug','description',
+		# 'category1','category2','status','url','critical']
 
 class BomDetailUrlSerializer(serializers.ModelSerializer):
 	class Meta:

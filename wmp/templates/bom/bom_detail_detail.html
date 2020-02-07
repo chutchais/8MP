@@ -14,8 +14,8 @@
     <i>Modified date : {{object.modified_date}}</i>
 
     <div class="row">
-                <div class="col-md-6">
-                  <h4>Basic Information</h4>
+      <div class="col-md-6">
+        <h4>Basic Information</h4>
           <table class="table">
             <tbody>
               <tr>
@@ -66,6 +66,33 @@
                 <td>Status</td>
                   <td><i class="fa {% if object.status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
               </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div class="col-md-6">
+        <h4>Packaging Information</h4>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Pin</td>
+                  <td>{{object.pin}}</td>
+              </tr>
+              <tr>
+                <td>Thickness</td>
+                  <td>{{object.thickness}}</td>
+              </tr>
+
+              <tr>
+                <td>Package Family</td>
+                  <td>{{object.package_family}}</td>
+              </tr>
+              <tr>
+                <td>Package Type</td>
+                  <td>{{object.package}}</td>
+              </tr>
+
             </tbody>
           </table>
         </div>

@@ -2,22 +2,22 @@ from django.contrib import admin
 from django.forms import TextInput, Textarea
 from django.db import models
 
-from .models import Component,Part
+from .models import Module,Component
 
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.admin import ImportExportActionModelAdmin
 
-class ComponentResource(resources.ModelResource):
+class ModuleResource(resources.ModelResource):
     class Meta:
-        model = Component
+        model = Module
         import_id_fields = ('number',)
         skip_unchanged = True
         report_skipped= True
         exclude = ('user','registered_date','last_modified_date','slug' )
 
 
-class ComponentAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelAdmin):
+class ModuleAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelAdmin):
     search_fields = ['number','title','description','pn']
     list_filter = ['pn_type','category1','category2']
     list_display = ('number','pn','rev','title','parent','reserved_for','pn_type','registered_date')
@@ -34,24 +34,24 @@ class ComponentAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.M
         ('Property',{'fields': ['datecode','lotcode','supcode','pn_type']}),
         ('System Information',{'fields':[('user','registered_date'),'last_modified_date','slug']})
     ]
-    resource_class      = ComponentResource
+    resource_class      = ModuleResource
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
-        super(ComponentAdmin, self).save_model(request, obj, form, change)
+        super(ModuleAdmin, self).save_model(request, obj, form, change)
 
-admin.site.register(Component,ComponentAdmin)
+admin.site.register(Module,ModuleAdmin)
 
 
-class PartResource(resources.ModelResource):
+class ComponentResource(resources.ModelResource):
     class Meta:
-        model = Part
+        model = Component
         import_id_fields = ('number',)
         skip_unchanged = True
         report_skipped= True
         exclude = ('user','registered_date','last_modified_date','slug' )
 
-class PartAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelAdmin):
+class ComponentAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelAdmin):
     search_fields = ['number','title','description','pn']
     list_filter = ['carrier','category1','category2','msl']
     list_display = ('number','barcode','pn','rev','title','qty','carrier','registered_date')
@@ -74,6 +74,6 @@ class PartAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelA
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
-        super(PartAdmin, self).save_model(request, obj, form, change)
+        super(ComponentAdmin, self).save_model(request, obj, form, change)
 
-admin.site.register(Part,PartAdmin)
+admin.site.register(Component,ComponentAdmin)

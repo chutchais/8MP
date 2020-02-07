@@ -100,6 +100,7 @@ class Assembly_Detail(models.Model):
 	category1 			= models.CharField(max_length=50,blank=True, null=True)
 	category2 			= models.CharField(max_length=50,blank=True, null=True)
 	critical 			= models.BooleanField(default=False)
+	msd_control			= models.BooleanField(default=False,verbose_name='Enable MSD Control')
 	status 				= models.CharField(max_length=1,choices=STATUS_CHOICES,default=ACTIVE)
 	created_date 		= models.DateTimeField(auto_now_add=True)
 	modified_date 		= models.DateTimeField(blank=True, null=True,auto_now=True)

@@ -24,7 +24,14 @@ PART_TYPE_CHOICE = (
 		('BUILD','Inernal Build with serial number')
 	)
 
-class Component(models.Model):
+ASSEMBLY_ACTION_CHOICES = (
+		(True, 'Assembly'),
+		(False, 'De-Assembly'),
+	)
+
+
+
+class Module(models.Model):
 	number 				= models.CharField(max_length=100,
 							validators=[
 								RegexValidator(
@@ -85,24 +92,24 @@ class Component(models.Model):
 	# 	if True:
 	# 		raise ValidationError(_('Over WorkOrder QTY'))
 
-def create_component_slug(instance, new_slug=None):
+def create_module_slug(instance, new_slug=None):
 	# import datetime
 	default_slug = '%s' % (instance.number)
 	slug = slugify(default_slug)
 	if new_slug is not None:
 		slug = new_slug
-	qs = Component.objects.filter(slug=slug)
+	qs = Module.objects.filter(slug=slug)
 	exists = qs.exists()
 	if exists:
-		new_slug = "%s-%s" %(slug,qs.first().id)
-		return create_component_slug(instance, new_slug=new_slug)
+		new_slug = "%s-%s" %(slug,qs.count())
+		return create_module_slug(instance, new_slug=new_slug)
 	return slug
 
-def pre_save_component_receiver(sender, instance, *args, **kwargs):
+def pre_save_module_receiver(sender, instance, *args, **kwargs):
 	if not instance.slug:
-		instance.slug = create_component_slug(instance)
+		instance.slug = create_module_slug(instance)
 
-pre_save.connect(pre_save_component_receiver, sender=Component)
+pre_save.connect(pre_save_module_receiver, sender=Module)
 
 
 
@@ -135,7 +142,7 @@ MSL_TYPE_CHOICE = (
 # 5	48 hours
 # 5a	24 hours
 # 6	Mandatory bake before use. After bake, must be reflowed within the time limit specified on the label.
-class Part(models.Model):
+class Component(models.Model):
 	number 				= models.CharField(primary_key = True,max_length=100,
 							validators=[
 								RegexValidator(
@@ -169,8 +176,8 @@ class Part(models.Model):
 	shelf_life			= models.IntegerField(verbose_name ='Shelf life (day)',default= 365)
 	met 				= models.IntegerField(verbose_name ='Manufacturer Exposure Time (hr)',default= 1)
 	exp_date			= models.DateTimeField(verbose_name ='Expire Date',blank=True, null=True)
-	baking_start_date	= models.DateTimeField(verbose_name ='Start Baking Date',blank=True, null=True)
-	baking_finish_date  = models.DateTimeField(verbose_name ='Finish Baking Date',blank=True, null=True)
+	baking_start_date	= models.DateTimeField(verbose_name ='Start Baking Datetime',blank=True, null=True)
+	baking_finish_date  = models.DateTimeField(verbose_name ='Finish Baking Datetime',blank=True, null=True)
 	registered_date 	= models.DateTimeField(auto_now_add=True)
 	last_modified_date 	= models.DateTimeField(blank=True, null=True,auto_now=True)
 	status 				= models.CharField(max_length=1,choices=STATUS_CHOICES,default=ACTIVE)
@@ -185,7 +192,7 @@ class Part(models.Model):
 		return ('%s' % (self.number))
 
 	def get_absolute_url(self):
-		return reverse('component:part-detail', kwargs={'slug': self.slug})
+		return reverse('component:component-detail', kwargs={'pk': self.pk})
 
 	# Validation
 	# def clean(self):
@@ -193,22 +200,67 @@ class Part(models.Model):
 	# 	if True:
 	# 		raise ValidationError(_('Over WorkOrder QTY'))
 
-def create_part_slug(instance, new_slug=None):
+def create_component_slug(instance, new_slug=None):
 	# import datetime
 	default_slug = '%s' % (instance.number)
 	slug = slugify(default_slug)
 	if new_slug is not None:
 		slug = new_slug
-	qs = Part.objects.filter(slug=slug)
+	qs = Component.objects.filter(slug=slug)
 	exists = qs.exists()
 	if exists:
-		new_slug = "%s-%s" %(slug,qs.first().id)
-		return create_part_slug(instance, new_slug=new_slug)
+		new_slug = "%s-%s" %(slug,qs.count())
+		return create_component_slug(instance, new_slug=new_slug)
 	return slug
 
-def pre_save_part_receiver(sender, instance, *args, **kwargs):
+def pre_save_component_receiver(sender, instance, *args, **kwargs):
 	if not instance.slug:
-		instance.slug = create_part_slug(instance)
+		instance.slug = create_component_slug(instance)
 
-pre_save.connect(pre_save_part_receiver, sender=Part)
+pre_save.connect(pre_save_component_receiver, sender=Component)
 
+
+class Assembled(models.Model):
+	number 				= models.ForeignKey(SerialNumber,
+							on_delete=models.SET_NULL,blank=True, null=True,
+							related_name='assembled',
+							verbose_name ='Unit serial number')
+	pn_type				= models.CharField(verbose_name ='Part Type',
+							max_length=10,choices=PART_TYPE_CHOICE,default='MODULE')
+	refdes 				= models.CharField(verbose_name ='Ref Destinator',max_length=50,
+						validators=[
+										RegexValidator(
+											regex='^[\w-]+$',
+											message='RD does not allow special charecters',
+										),
+						])
+	pn 				= models.CharField(verbose_name ='Part Number',max_length=50,
+						validators=[
+										RegexValidator(
+											regex='^[\w-]+$',
+											message='Part number does not allow special charecters',
+										),
+						])
+	module_number 	= models.ForeignKey(Module,
+							on_delete=models.SET_NULL,blank=True, null=True,
+							related_name='assembled',
+							verbose_name ='Module Number')
+	component_number 	= models.ForeignKey(Component,
+							on_delete=models.SET_NULL,blank=True, null=True,
+							related_name='assembled',
+							verbose_name ='Part Number')
+	operation 		= models.ForeignKey(Operation,
+							on_delete=models.SET_NULL,blank=True, null=True,
+							related_name='assembled',
+							verbose_name ='Assembled Operation')
+	note 			= models.TextField(max_length=255,blank=True, null=True)
+	action_date 	= models.DateTimeField(blank=True, null=True,auto_now=True)
+	action_status 	= models.BooleanField(choices=ASSEMBLY_ACTION_CHOICES,default=True)
+	user 			= models.ForeignKey(settings.AUTH_USER_MODEL,
+						on_delete=models.SET_NULL,
+						blank=True,null=True)
+	def __str__(self):
+		return ('%s on %s' % (self.refdes,self.number))
+
+	def get_absolute_url(self):
+		return reverse('component:assembled-list', kwargs={'pk': self.pk})

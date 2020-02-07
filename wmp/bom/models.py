@@ -90,6 +90,18 @@ PART_TYPE_CHOICE = (
 		('BUILD','Inernal Build with serial number')
 	)
 
+PACKAGE_FAMILY_CHOICE = (
+		('IP','Through-hole'),
+		('SFM','Surface mount'),
+		('CC','Chip carrier'),
+		('PGA','Pin grid arrays'),
+		('FP','Flat packages'),
+		('SOP','Small outline packages'),
+		('CSP','Chip-scale packages'),
+		('BGA','Ball grid array'),
+		('OTHER','Transistor, diode, small-pin-count IC packages'),
+	)
+
 class Bom_Detail(models.Model):
 	rd 				= models.CharField(verbose_name ='Ref Destinator',max_length=50,
 						validators=[
@@ -116,7 +128,10 @@ class Bom_Detail(models.Model):
 	category1 		= models.CharField(max_length=50,blank=True, null=True)
 	category2 		= models.CharField(max_length=50,blank=True, null=True)
 	critical 		= models.BooleanField(default=False)
-	# alt_pn 			= models.IntegerField(default=0,verbose_name ='Alternative Part')
+	pin 			= models.IntegerField(default = 1)
+	thickness 		= models.DecimalField(max_digits = 5,decimal_places = 2, default=0.18)
+	package 		= models.CharField(max_length=20,blank=True, null=True)
+	package_family 	= models.CharField(max_length=10,choices=PACKAGE_FAMILY_CHOICE,default='SFM')
 	status 			= models.CharField(max_length=1,choices=STATUS_CHOICES,default=ACTIVE)
 	created_date 	= models.DateTimeField(auto_now_add=True)
 	modified_date 	= models.DateTimeField(blank=True, null=True,auto_now=True)

@@ -66,6 +66,201 @@
       </tbody>
     </table>
 
+
+    <!-- sample Yield report -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Title</th>
+          <th scope="col">First-in</th>
+          <th scope="col">First-Passed</th>
+          <th scope="col">First-Passed-Yield</th>
+          <th scope="col">All-in</th>
+          <th scope="col">All-Passed</th>
+          <th scope="col">Accum-Yield</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+    
+        {% for object in object_list %}
+          <tr>
+            <td><a href="{{object.get_absolute_url}}">{{object}}</a> </td>
+            <td>{{object.title}} </td>
+            
+            {%if object.name == 'Inspection' %}
+              <td>50</td>
+              <td>48</td>
+              <td>96%</td>
+              <td>65</td>
+              <td>64</td>
+              <td>98%</td>
+            {% endif %}
+
+            {%if object.name == 'Assembly' %}
+              <td>70</td>
+              <td>62</td>
+              <td>88%</td>
+              <td>80</td>
+              <td>80</td>
+              <td>100%</td>
+            {% endif %}
+
+            {%if object.name == 'Registration'  %}
+              <td>100</td>
+              <td>100</td>
+              <td>100%</td>
+              <td>100</td>
+              <td>100</td>
+              <td>100%</td>
+            {% endif %}
+
+            {%if object.name == 'End'  %}
+              <td>100</td>
+              <td>100</td>
+              <td>100%</td>
+              <td>100</td>
+              <td>100</td>
+              <td>100%</td>
+            {% endif %}
+
+           
+
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+     <!-- Hour Yield report -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+ 
+          <th scope="col">Inspection</th>
+          <th scope="col">1</th><th scope="col">2</th><th scope="col">3</th><th scope="col">4</th>
+          <th scope="col">5</th><th scope="col">6</th><th scope="col">7</th><th scope="col">8</th>
+          <th scope="col">9</th><th scope="col">10</th><th scope="col">11</th><th scope="col">12</th>
+          <th scope="col">13</th><th scope="col">14</th><th scope="col">15</th><th scope="col">16</th>
+          <th scope="col">17</th><th scope="col">18</th><th scope="col">19</th><th scope="col">20</th>
+          <th scope="col">21</th><th scope="col">22</th><th scope="col">23</th><th scope="col">24</th>       
+        </tr>
+      </thead>
+      <tbody>
+         <tr>
+          
+          <td scope="col">First Tested</td>
+          <td scope="col">200</td><td scope="col">190</td><td scope="col">180</td><td scope="col">170</td>
+          <td scope="col">150</td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>       
+        </tr>
+        <tr>
+          
+          <td scope="col">First Passed</td>
+          <td scope="col">190</td><td scope="col">180</td><td scope="col">170</td><td scope="col">150</td>
+          <td scope="col">130</td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>       
+        </tr>
+
+        <tr>
+          
+          <td scope="col">First Failed</td>
+          <td scope="col">10</td><td scope="col">10</td><td scope="col">10</td><td scope="col">20</td>
+          <td scope="col">20</td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td> 
+
+        </tr>
+
+        <tr>
+          
+          <td scope="col">First Yield</td>
+          <td scope="col">95%</td><td scope="col">94%</td><td scope="col">94%</td><td scope="col">88%</td>
+          <td scope="col">86%</td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>    
+          <td scope="col"></td><td scope="col"></td><td scope="col"></td><td scope="col"></td>    
+        </tr>
+      </tbody>
+
+   </table>
+ </div>
+
+        <!-- Failure Yield report -->
+        <h2>Failure Pareto by Operation/Failure </h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+ 
+          <th scope="col">Operation</th>
+          <th scope="col">Failure</th>
+          <th scope="col">Total</th>       
+        </tr>
+      </thead>
+      <tbody>
+         <tr>
+          <td scope="col">Inspection1</td>
+          <td scope="col">No Boot</td> 
+          <td scope="col">30</td>      
+        </tr>
+        <tr>
+          <td scope="col">Inspection1</td>
+          <td scope="col">No Power</td> 
+          <td scope="col">20</td>      
+        </tr>
+        <tr>
+          <td scope="col">Inspection2</td>
+          <td scope="col">No Tx power</td> 
+          <td scope="col">8</td>      
+        </tr>
+        <tr>
+          <td scope="col">Inspection2</td>
+          <td scope="col">No Singal monitor</td> 
+          <td scope="col">5</td>      
+        </tr>
+      </tbody>
+    </table>
+
+
+    <!-- Defect Yield report -->
+        <h2>Defect Pareto by Failure : No Boot </h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+ 
+          <th scope="col">Failure</th>
+          <th scope="col">Defect</th>
+          <th scope="col">RefDes</th>
+          <th scope="col">Total</th>       
+        </tr>
+      </thead>
+      <tbody>
+         <tr>
+          <td scope="col">No Boot</td>
+          <td scope="col">Fuse F1 broken</td> 
+          <td scope="col">F1</td> 
+          <td scope="col">20</td>      
+        </tr>
+        <tr>
+          <td scope="col">No Boot</td>
+          <td scope="col">IC Burn IC1</td> 
+          <td scope="col">IC1</td>
+          <td scope="col">10</td>      
+        </tr>
+        
+      </tbody>
+    </table>
+
     {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} record(s). <br>
      {% if is_paginated %}
                   <ul class="pagination">

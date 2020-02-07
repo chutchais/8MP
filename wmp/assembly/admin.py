@@ -23,7 +23,7 @@ class AssemblyResource(resources.ModelResource):
 
 class AssemblyDetailInline(admin.TabularInline):
     model = Assembly_Detail
-    fields = ['ordered','part','title','critical','status']
+    fields = ['ordered','part','title','critical','msd_control','status']
     extra = 0
     show_change_link = True
     verbose_name = 'Assembly detail'
@@ -76,7 +76,7 @@ admin.site.register(Assembly,AssemblyAdmin)
 class AssemblyDetailAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelAdmin):
     search_fields = ['assembly__name','title','description','category1','category2']
     list_filter = ['category1','category2','status']
-    list_display = ('assembly','part','title','critical','category1','category2','status','user')
+    list_display = ('assembly','part','title','critical','msd_control','category1','category2','status','user')
     readonly_fields = ('user','slug','created_date','modified_date')
     autocomplete_fields = ['assembly','part']
     save_as = True
@@ -87,6 +87,7 @@ class AssemblyDetailAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,ad
         ('Basic Information',{'fields': ['assembly','part','title','description','category1','category2','status']}),
         ('Property Validation Information',{'fields': ['datecode_regexp','lotcode_regexp',
                                                 'supplycode_regexp','sn_regexp']}),
+        ('MSD Control',{'fields': ['msd_control']}),
         ('System Information',{'fields':[('user','created_date'),'modified_date','slug']})
     ]
     # resource_class      = AssemblyResource

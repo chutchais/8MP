@@ -1,0 +1,121 @@
+
+{% extends "base.html" %}
+
+
+{% block title %}
+	Product : {{ object }}
+{% endblock %}
+
+{% block content %}
+	<div class="wrapper">	
+		<h1>Number : {{object}}</h1> 
+		<a href="../">Back to Component list</a><br>
+		<i>Registered date : {{object.registered_date}} </i><br>
+		<i>Modified date : {{object.last_modified_date}}</i>
+
+		<div class="row">
+          <div class="col-md-6">
+	            <h4>Basic Information</h4>
+			<table class="table">
+			  <tbody>
+			  	<tr>
+			  		<td>Title</td>
+			      	<td>{{object.title}}</td>
+			    </tr>
+			  	<tr>
+			  		<td>Description</td>
+			      	<td>{{object.description|linebreaks}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Assebled on </td>
+			      	<td>{{object.parent}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Reserved for</td>
+			      	<td>{{object.reserved_for}}</td>
+			    </tr>
+			   
+			    <tr>
+			  		<td>Slug</td>
+			      	<td>{{object.slug}}</td>
+			    </tr>
+
+			   
+
+			    <tr>
+			  		<td>Category</td>
+			      	<td>{{object.category1}}/{{object.category2}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Registerd Date</td>
+			      	<td>{{object.registered_date}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Last Operation</td>
+			      	<td>{{object.last_operation}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Last Date</td>
+			      	<td>{{object.last_modified_date}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>User</td>
+			      	<td>{{object.user}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Status</td>
+			      	<td><i class="fa {% if object.status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+
+	<div class="col-md-6">
+            <h4>Part number and Revision Information</h4>
+            <table class="table">
+			  <tbody>
+			  	<tr>
+			  		<td>Part Type</td>
+			      	<td>{{object.pn_type}}</td>
+			    </tr>
+
+			  	<tr>
+			  		<td>Part number</td>
+			      	<td>{{object.pn}}</td>
+			    </tr>
+			  	<tr>
+			  		<td>Rev</td>
+			      	<td>{{object.rev}}</td>
+			    </tr>
+			    <tr>
+			  		<td>Date code</td>
+			      	<td>{{object.datecode}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Lot code</td>
+			      	<td>{{object.lotcode}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Supply code</td>
+			      	<td>{{object.supcode}}</td>
+			    </tr>
+
+			   
+			    
+			  </tbody>
+			</table>
+     </div>
+
+</div>
+
+	</div>
+{% endblock content %}

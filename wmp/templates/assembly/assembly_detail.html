@@ -65,6 +65,7 @@
 			          <th scope="col">Part</th>
 			          <th scope="col">Type</th>
 			          <th scope="col">Critical</th>
+			          <th scope="col">MSD Control</th>
 			          <th scope="col">Title</th>
 			         <th scope="col">Modify Date</th>
 			         <th scope="col">Status</th>
@@ -79,6 +80,9 @@
 			           		<td><a href="{{item.part.get_absolute_url}}">{{item.part}}</a></td>
 			           		<td>{{item.part.pn_type}}</td>
 			           		<td><i class="fa {% if item.critial %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if item.critial %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
+
+			           		<td><i class="fa {% if item.msd_control %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if item.msd_control %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
+
 			           		<td>{{item.title}}</td>
 			           		<td>{{item.modified_date}}</td>
 			           		<td><i class="fa {% if item.status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if item.status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
