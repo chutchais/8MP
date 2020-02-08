@@ -18,7 +18,7 @@ class WorkorderSerializer(serializers.ModelSerializer):
 		model = WorkOrder
 		fields = ['name','product','routing','qty','regexp',
 				'title','description','category1','category2',
-				'created_date','modified_date','status','slug','url','registered']
+				'created_date','modified_date','status','slug','url','registered','build_type']
 		lookup_field = 'slug'
 		extra_kwargs = {
 			'url': {'lookup_field': 'slug'}

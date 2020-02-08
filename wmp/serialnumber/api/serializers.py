@@ -39,6 +39,10 @@ class SerialNumberUrlSerializer(serializers.ModelSerializer):
 		model = SerialNumber
 		fields = ['number','workorder','url']
 
+		extra_kwargs = {
+			'url': {'lookup_field': 'slug'}
+		}
+
 # from rest_framework.serializers import (
 # 	ModelSerializer,
 # 	HyperlinkedIdentityField,

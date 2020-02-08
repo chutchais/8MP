@@ -22,7 +22,7 @@ class WorkOrderResource(resources.ModelResource):
 class WorkOrderAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelAdmin):
     search_fields = ['name','title','description','product__name','category1','category2']
     list_filter = ['product','category1','category2']
-    list_display = ('name','title','product','routing','regexp','qty','registered','category1','created_date')
+    list_display = ('name','title','product','routing','regexp','qty','build_type','registered','category1','created_date')
     # list_editable = ('color','move_performa')
     readonly_fields = ('user','slug','created_date','modified_date')
     autocomplete_fields = ['product','routing']
@@ -31,7 +31,7 @@ class WorkOrderAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.M
     save_on_top =True
 
     fieldsets = [
-        ('Basic Information',{'fields': ['name','title','product','qty','description','category1','category2']}),
+        ('Basic Information',{'fields': ['name','title','product','qty','build_type','description','category1','category2']}),
         ('Serial Number Format Control',{'fields': ['regexp']}),
         ('Routing Control',{'fields': ['routing']}),
         ('System Information',{'fields':[('user','created_date'),'modified_date','slug']})

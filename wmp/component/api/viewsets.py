@@ -14,7 +14,7 @@ class ModuleViewSet(viewsets.ModelViewSet):
 	filter_backends = (filters.SearchFilter,filters.OrderingFilter,DjangoFilterBackend)
 	search_fields = ('number','title','category1','category2', 'description','status')
 	filter_fields = ('number','title','category1','category2', 'description','status')
-	lookup_field = 'slug'
+	lookup_field = 'number'
 
 class ComponentViewSet(viewsets.ModelViewSet):
 	queryset = Component.objects.all()

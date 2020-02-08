@@ -99,54 +99,7 @@
 			</div>
 		</div>
 
-		 <!-- Component tracking -->
-
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">Unit</th>
-          <th scope="col">WorkOrder</th>
-          <th scope="col">Ref Des</th>
-          <th scope="col">Part number</th>
-          <th scope="col">Part Type</th>
-          <th scope="col">Assembly On</th>
-          <th scope="col">Datecode</th>
-          <th scope="col">Lotcode</th>
-          <th scope="col">Supplycode</th>
-          <th scope="col">Part SN</th>
-         <th scope="col">Modify Date</th>
-         
-        </tr>
-      </thead>
-      <tbody>
-    
-        {% for object in object.items.all %}
-          <tr>
-            <td>SN001</td>
-            <td>WorkOrder1</td>
-            <td><a href="{{object.get_absolute_url}}">{{object.rd}}</a></td>
-            <td>{{object.pn}} </td>
-            <td>{{object.pn_type}} </td>
-            <td>Assembly</td>
-            <td>20200210</td>
-            <td>003</td>
-            <td>SI</td>
-            {% if object.rd == 'SFP1' %}
-            	<td>SFP0001</td>
-            {% elif object.rd == 'ITLA1' %}
-            	<td>ITLA0001</td>
-            {% elif object.rd == 'PART1' %}
-            	<td>PATR3000</td>
-            {% else %}
-            	<td></td>
-            {% endif %}
-            
-            <td>{{object.modified_date}}</td>
-            
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+		
 
 	</div>
 {% endblock content %}

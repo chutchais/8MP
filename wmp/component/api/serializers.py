@@ -6,19 +6,21 @@ from rest_framework.serializers import (
 	)
 
 from component.models import Module,Component
-
+from serialnumber.api.serializers import SerialNumberUrlSerializer
 
 
 class ModuleSerializer(serializers.ModelSerializer):
+	parent 			= SerialNumberUrlSerializer(many=False,read_only=True)
+	reserved_for 	= SerialNumberUrlSerializer(many=False,read_only=True)
 	class Meta:
 		model = Module
 		fields = ['number','parent','reserved_for','slug','title','category1','category2',
 				'description','pn','rev','datecode','lotcode','supcode',
 				'registered_date','last_operation','last_modified_date','status',
 				'user','pn_type','url']
-		lookup_field = 'slug'
+		lookup_field = 'number'
 		extra_kwargs = {
-			'url': {'lookup_field': 'slug'}
+			'url': {'lookup_field': 'number'}
 		}
 
 class ComponentSerializer(serializers.ModelSerializer):

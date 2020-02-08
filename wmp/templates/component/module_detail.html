@@ -3,13 +3,13 @@
 
 
 {% block title %}
-	Product : {{ object }}
+	Module : {{ object }}
 {% endblock %}
 
 {% block content %}
 	<div class="wrapper">	
 		<h1>Number : {{object}}</h1> 
-		<a href="../">Back to Component list</a><br>
+		<a href=".../../">Back to Module list</a><br>
 		<i>Registered date : {{object.registered_date}} </i><br>
 		<i>Modified date : {{object.last_modified_date}}</i>
 
@@ -113,9 +113,34 @@
 			    
 			  </tbody>
 			</table>
-     </div>
+	    </div>
 
-</div>
+	</div> <!-- end Row-->
 
-	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<table class="table table-bordered">
+		      <thead>
+		        <tr>
+		          <th scope="col">Number</th>
+		          <th scope="col">Title</th>
+		          <th scope="col">Part number</th>
+		          <th scope="col">Rev</th>
+		          <th scope="col">Parent</th>
+		          <th scope="col">Reserved for</th>
+		          <th scope="col">Type</th>
+		         <th scope="col">Created Date</th>
+		         <th scope="col">Modify Date</th>
+		         <th scope="col">Status</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		      	<tr>
+		      	</tr>
+		      </tbody>
+			</table>
+		</div>
+	</div><!-- end Row-->
+
+	</div> <!-- end wrapper-->
 {% endblock content %}

@@ -27,7 +27,7 @@ class AssemblyDetailSerializer(serializers.ModelSerializer):
 		fields = ['ordered','assembly','part',
 		'title','slug','description',
 		'category1','category2','status','url','critical','datecode_regexp','lotcode_regexp',
-		'supplycode_regexp','sn_regexp']
+		'supplycode_regexp','sn_regexp','msd_control']
 
 class AssemblyUsageSerializer(serializers.ModelSerializer):
 	assembly   = HyperlinkedRelatedField(many=False,read_only=True,view_name='assembly-detail')

@@ -12,7 +12,7 @@
     <form class='form' method='GET' action='.'>
                         <input type='text' id='search' placeholder="Search part" name="q" value='{{ request.GET.q}}'>
                         <button class='btn btn-default' type='submit'>Search</button>
-                        <a href="{% url 'component:part-list'  %}">Clear result</a>
+                        <a href="{% url 'component:list'  %}">Clear result</a>
     </form>
 
     {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} record(s). <br>

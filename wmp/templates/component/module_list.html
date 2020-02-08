@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}8AM - Component & Module list{% endblock %}
+{% block title %}8AM - Module list{% endblock %}
 
 {% block content %}
 
-	<h1>Component & Module List</h1>
-  <a href="../"><i class="fa fa-home" style="font-size:24px;color:blue" aria-hidden="true"></i></a>
+	<h1>Module List</h1>
+  <a href="../../"><i class="fa fa-home" style="font-size:24px;color:blue" aria-hidden="true"></i></a>
 	<div class="wrapper">	
 
 
     <form class='form' method='GET' action='.'>
                         <input type='text' id='search' placeholder="Search component" name="q" value='{{ request.GET.q}}'>
                         <button class='btn btn-default' type='submit'>Search</button>
-                        <a href="{% url 'component:list'  %}">Clear result</a>
+                        <a href="{% url 'component:module-list'  %}">Clear result</a>
     </form>
 
     {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} record(s). <br>

@@ -30,7 +30,7 @@ ASSEMBLY_ACTION_CHOICES = (
 	)
 
 
-
+# With Serial number from In-comming part or Internal build.
 class Module(models.Model):
 	number 				= models.CharField(max_length=100,
 							validators=[
@@ -84,7 +84,7 @@ class Module(models.Model):
 		return ('%s' % (self.number))
 
 	def get_absolute_url(self):
-		return reverse('component:detail', kwargs={'slug': self.slug})
+		return reverse('component:module-detail', kwargs={'slug': self.slug})
 
 	# Validation
 	# def clean(self):
@@ -142,6 +142,8 @@ MSL_TYPE_CHOICE = (
 # 5	48 hours
 # 5a	24 hours
 # 6	Mandatory bake before use. After bake, must be reflowed within the time limit specified on the label.
+
+# SMT component (without Serial number)
 class Component(models.Model):
 	number 				= models.CharField(primary_key = True,max_length=100,
 							validators=[
