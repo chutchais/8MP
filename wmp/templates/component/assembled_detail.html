@@ -1,0 +1,139 @@
+
+{% extends "base.html" %}
+
+
+{% block title %}
+	Assembled : {{ object }}
+{% endblock %}
+
+{% block content %}
+	<div class="wrapper">	
+		<h1>Number : {{object}}</h1> 
+		<a href="../">Back to Assembled list</a><br>
+		<i>Registered date : {{object.registered_date}} </i><br>
+		<i>Modified date : {{object.last_modified_date}}</i>
+
+		<div class="row">
+          <div class="col-md-6">
+	            <h4>Basic Information</h4>
+			<table class="table">
+			  <tbody>
+			  	
+			  	<tr>
+			  		<td>RefDes</td>
+			      	<td>{{object.refdes}}</td>
+			    </tr>
+			  	<tr>
+			  		<td>Note</td>
+			      	<td>{{object.note|linebreaks}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Module number </td>
+			      	<td>{{object.module_number}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Component number</td>
+			      	<td>{{object.component_number}}</td>
+			    </tr>
+			   
+			    <tr>
+			  		<td>Slug</td>
+			      	<td>{{object.slug}}</td>
+			    </tr>
+
+			   
+
+			    <tr>
+			  		<td>Operation</td>
+			      	<td>{{object.operation}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Action Date</td>
+			      	<td>{{object.action_date}}</td>
+			    </tr>
+
+			    
+			    <tr>
+			  		<td>User</td>
+			      	<td>{{object.user}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Assembly/DeAssembly</td>
+			      	<td><i class="fa {% if object.action_status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.action_status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+
+	<div class="col-md-6">
+            <h4>Part number and Revision Information</h4>
+            <table class="table">
+			  <tbody>
+			  	<tr>
+			  		<td>Part Type</td>
+			      	<td>{{object.pn_type}}</td>
+			    </tr>
+
+			  	<tr>
+			  		<td>Part number</td>
+			      	<td>{{object.pn}}</td>
+			    </tr>
+			  	<tr>
+			  		<td>Rev</td>
+			      	<td>{{object.rev}}</td>
+			    </tr>
+			    <!-- <tr>
+			  		<td>Date code</td>
+			      	<td>{{object.datecode}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Lot code</td>
+			      	<td>{{object.lotcode}}</td>
+			    </tr>
+
+			    <tr>
+			  		<td>Supply code</td>
+			      	<td>{{object.supcode}}</td>
+			    </tr> -->
+
+			   
+			    
+			  </tbody>
+			</table>
+	    </div>
+
+	</div> <!-- end Row-->
+
+	<!-- <div class="row">
+		<div class="col-md-6">
+			<table class="table table-bordered">
+		      <thead>
+		        <tr>
+		          <th scope="col">Number</th>
+		          <th scope="col">Title</th>
+		          <th scope="col">Part number</th>
+		          <th scope="col">Rev</th>
+		          <th scope="col">Parent</th>
+		          <th scope="col">Reserved for</th>
+		          <th scope="col">Type</th>
+		         <th scope="col">Created Date</th>
+		         <th scope="col">Modify Date</th>
+		         <th scope="col">Status</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		      	<tr>
+		      	</tr>
+		      </tbody>
+			</table>
+		</div>
+	</div> -->
+	<!-- end Row--> 
+
+	</div> <!-- end wrapper-->
+{% endblock content %}

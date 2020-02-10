@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.forms import TextInput, Textarea
 from django.db import models
 
-from .models import Module,Component
+from .models import Module,Component,Assembled
 
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
@@ -77,3 +77,39 @@ class ComponentAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.M
         super(ComponentAdmin, self).save_model(request, obj, form, change)
 
 admin.site.register(Component,ComponentAdmin)
+
+
+
+
+class AssembledResource(resources.ModelResource):
+    class Meta:
+        model = Assembled
+        import_id_fields = ('number',)
+        skip_unchanged = True
+        report_skipped= True
+        exclude = ('user','registered_date','last_modified_date','slug' )
+
+class AssembledAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelAdmin):
+    search_fields = ['number','refdes','pn','module_number__number','component_number__number']
+    list_filter = ['pn_type','action_status']
+    list_display = ('number','refdes','pn','pn_type','module_number','component_number','action_status')
+    # list_editable = ('color','move_performa')
+    readonly_fields = ('user','action_date','slug')
+    autocomplete_fields = ['number','module_number','component_number']
+    save_as = True
+    save_as_continue = True
+    save_on_top =True
+
+    fieldsets = [
+        ('Basic Information',{'fields': ['number','refdes',('pn','rev'),'note']}),
+        ('Component/Module Control',{'fields': ['module_number','component_number']}),
+        ('Action Information',{'fields': [('operation','action_status'),'action_date']}),
+        ('System Information',{'fields':['user','slug']})
+    ]
+    resource_class      = AssembledResource
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super(AssembledAdmin, self).save_model(request, obj, form, change)
+
+admin.site.register(Assembled,AssembledAdmin)

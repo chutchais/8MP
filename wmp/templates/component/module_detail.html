@@ -9,7 +9,7 @@
 {% block content %}
 	<div class="wrapper">	
 		<h1>Number : {{object}}</h1> 
-		<a href=".../../">Back to Module list</a><br>
+		<a href="../">Back to Module list</a><br>
 		<i>Registered date : {{object.registered_date}} </i><br>
 		<i>Modified date : {{object.last_modified_date}}</i>
 
@@ -117,7 +117,7 @@
 
 	</div> <!-- end Row-->
 
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-md-6">
 			<table class="table table-bordered">
 		      <thead>
@@ -140,7 +140,48 @@
 		      </tbody>
 			</table>
 		</div>
-	</div><!-- end Row-->
+	</div> -->
+
+	 <div class="row">
+          <div class="col-md-12">
+            <h4>Assembly and De-assembly History</h4>
+
+            <table class="table table-hover">
+		      <thead>
+		        <tr>
+		          <th scope="col">Operation</th>
+		          <th scope="col">Unit Serial number</th>
+		          <th scope="col">Date</th>
+		          <th scope="col">RefDes</th>
+		          <th scope="col">Part number</th>
+		          <th scope="col">Rev</th>
+		          
+		          <th scope="col">Type</th>
+		         <th scope="col">Action</th>
+
+		        </tr>
+		      </thead>
+		      <tbody>
+				
+		    		{% for object in object.assembled.all %}
+				          <tr>
+				            <td>{{object.operation}} </td>
+				            <td>{{object.number}} </td>
+				            <td>{{object.action_date}} </td>
+				            <td>{{object.refdes}} </td>
+				            <td>{{object.pn}}</td>
+				            <td>{{object.rev}}</td>
+				            <td>{{object.pn_type}}</td>
+				           <!--  <td><a href="{{object.module_number.get_absolute_url}}">{{object.module_number|default:""}}</a></td>
+				            <td><a href="{{object.component_number.get_absolute_url}}">{{object.component_number|default:""}}</a></td>-->
+				            <td><i class="fa {% if object.action_status  %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.action_status %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td> 
+				           
+				          </tr>
+		    		{% endfor %}
+		      </tbody>
+		    </table>
+
+        </div> 
 
 	</div> <!-- end wrapper-->
 {% endblock content %}

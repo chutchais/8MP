@@ -4,8 +4,8 @@ from rest_framework.decorators import action,detail_route
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
-from component.models import Module,Component
-from component.api.serializers import ModuleSerializer,ComponentSerializer
+from component.models import Module,Component,Assembled
+from component.api.serializers import ModuleSerializer,ComponentSerializer,AssembledSerializer
 
 
 class ModuleViewSet(viewsets.ModelViewSet):
@@ -23,3 +23,12 @@ class ComponentViewSet(viewsets.ModelViewSet):
 	search_fields = ('number','title','category1','category2', 'description','status')
 	filter_fields = ('number','title','category1','category2', 'description','status')
 	lookup_field = 'pk'
+
+
+class AssembledViewSet(viewsets.ModelViewSet):
+	queryset = Assembled.objects.all()
+	serializer_class = AssembledSerializer
+	filter_backends = (filters.SearchFilter,filters.OrderingFilter,DjangoFilterBackend)
+	search_fields = ('number__number','refdes','pn')
+	filter_fields = ('number__number','refdes','pn')
+	lookup_field = 'slug'

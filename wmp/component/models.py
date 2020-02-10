@@ -194,7 +194,7 @@ class Component(models.Model):
 		return ('%s' % (self.number))
 
 	def get_absolute_url(self):
-		return reverse('component:component-detail', kwargs={'pk': self.pk})
+		return reverse('component:detail', kwargs={'pk': self.pk})
 
 	# Validation
 	# def clean(self):
@@ -243,6 +243,7 @@ class Assembled(models.Model):
 											message='Part number does not allow special charecters',
 										),
 						])
+	rev 				= models.CharField(verbose_name ='Part Revision',max_length=20,blank=True, null=True)
 	module_number 	= models.ForeignKey(Module,
 							on_delete=models.SET_NULL,blank=True, null=True,
 							related_name='assembled',
@@ -258,6 +259,7 @@ class Assembled(models.Model):
 	note 			= models.TextField(max_length=255,blank=True, null=True)
 	action_date 	= models.DateTimeField(blank=True, null=True,auto_now=True)
 	action_status 	= models.BooleanField(choices=ASSEMBLY_ACTION_CHOICES,default=True)
+	slug 			= models.SlugField(unique=True,blank=True, null=True)
 	user 			= models.ForeignKey(settings.AUTH_USER_MODEL,
 						on_delete=models.SET_NULL,
 						blank=True,null=True)
@@ -265,4 +267,23 @@ class Assembled(models.Model):
 		return ('%s on %s' % (self.refdes,self.number))
 
 	def get_absolute_url(self):
-		return reverse('component:assembled-list', kwargs={'pk': self.pk})
+		return reverse('component:assembled-detail', kwargs={'slug': self.slug})
+
+def create_assembled_slug(instance, new_slug=None):
+	# import datetime
+	default_slug = '%s-%s' % (instance.number,instance.refdes)
+	slug = slugify(default_slug)
+	if new_slug is not None:
+		slug = new_slug
+	qs = Assembled.objects.filter(slug=slug)
+	exists = qs.exists()
+	if exists:
+		new_slug = "%s-%s" %(slug,qs.count())
+		return create_assembled_slug(instance, new_slug=new_slug)
+	return slug
+
+def pre_save_assembled_receiver(sender, instance, *args, **kwargs):
+	if not instance.slug:
+		instance.slug = create_assembled_slug(instance)
+
+pre_save.connect(pre_save_assembled_receiver, sender=Assembled)
