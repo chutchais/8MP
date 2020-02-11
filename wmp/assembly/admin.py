@@ -84,10 +84,11 @@ class AssemblyDetailAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,ad
     save_on_top =True
 
     fieldsets = [
-        ('Basic Information',{'fields': ['assembly','part','title','description','category1','category2','status']}),
-        ('Property Validation Information',{'fields': ['datecode_regexp','lotcode_regexp',
-                                                'supplycode_regexp','sn_regexp']}),
-        ('MSD Control',{'fields': ['msd_control']}),
+        ('Basic Information',{'fields': ['assembly','part','title','description',
+                                    'category1','category2','status']}),
+        ('Component Item Control',{'fields': ['datecode_regexp','lotcode_regexp',
+                                                'supplycode_regexp','msd_control']}),
+        ('Module Item Control',{'fields': ['sn_regexp']}),
         ('System Information',{'fields':[('user','created_date'),'modified_date','slug']})
     ]
     # resource_class      = AssemblyResource

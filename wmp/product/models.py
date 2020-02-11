@@ -61,6 +61,40 @@ class Product(models.Model):
 	def get_absolute_url(self):
 		return reverse('product:detail', kwargs={'slug': self.slug})
 
+	@property
+	def wip_detail(self):
+		from serialnumber.models import SerialNumber
+		from django.db.models import Q
+		from django.db.models import Min,Max,Avg,StdDev,Count,Sum,Value, When,Case,IntegerField,CharField
+		sns = SerialNumber.objects.filter(workorder__product=self.name)
+		wips = sns.values('current_operation').annotate(
+				total=Count('number'),last_date=Max('last_modified_date')).order_by('current_operation')
+		return wips
+
+	@property
+	def overall_yield(self):
+		from performing.models import Performing
+		from django.db.models import Q,F
+		from django.db.models import Min,Max,Avg,StdDev,Count,Sum,Value, When,Case,IntegerField,CharField
+		from datetime import date
+		import datetime
+		end_date 		= date.today() + datetime.timedelta(days=1)
+		start_date_str	= datetime.datetime.strftime(self.created_date,"%Y-%m-%d")
+		end_date_str	= datetime.datetime.strftime(end_date,"%Y-%m-%d")
+		psn = Performing.objects.filter(
+					sn__workorder__product = self.name, 
+					stop_time__range=[start_date_str,end_date_str])
+		y = psn.values('operation').annotate(
+			total_in =Count('sn'),
+			total_pass=Sum(Case(When(result=True,then=Value(1)),default=Value(0),output_field=IntegerField())),
+			total_fail=Sum(Case(When(result=False,then=Value(1)),default=Value(0),output_field=IntegerField())),
+			first_in=Sum(Case(When(interval=1,then=Value(1)),default=Value(0),output_field=IntegerField())),
+			first_pass=Sum(Case(When(Q(interval=1)&Q(result=True),then=Value(1)),default=Value(0),output_field=IntegerField())),
+			first_fail=Sum(Case(When(Q(interval=1)&Q(result=False),then=Value(1)),default=Value(0),output_field=IntegerField()))
+			).order_by('operation')
+		return y
+	
+
 def create_product_slug(instance, new_slug=None):
     # import datetime
     default_slug = '%s' % (instance.name)

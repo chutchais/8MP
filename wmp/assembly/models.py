@@ -116,7 +116,7 @@ class Assembly_Detail(models.Model):
 		return ('%s' % (self.part))
 
 	def get_absolute_url(self):
-		return reverse('assembly_detail:detail', kwargs={'slug': self.slug})
+		return reverse('assembly:assembly-detail', kwargs={'slug': self.slug})
 
 def create_assembly_detail_slug(instance, new_slug=None):
     # import datetime

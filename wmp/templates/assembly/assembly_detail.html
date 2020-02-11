@@ -76,8 +76,8 @@
 				
 				{% for item in object.assembly_details.all|dictsort:"ordered" %}
 			           <tr>
-			           		<td>{{item.ordered}}</td>
-			           		<td><a href="{{item.part.get_absolute_url}}">{{item.part}}</a></td>
+			           		<td><a href="{{item.get_absolute_url}}">{{item.ordered}}</a></td>
+			           		<td>{{item.part}}</td>
 			           		<td>{{item.part.pn_type}}</td>
 			           		<td><i class="fa {% if item.critial %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if item.critial %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
 

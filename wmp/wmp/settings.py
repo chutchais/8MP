@@ -167,10 +167,10 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 # Docker Static_root
-STATIC_ROOT ='/staticfiles'
+# STATIC_ROOT ='/staticfiles'
 
 # Local Static_root
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Extra places for collectstatic to find static files.
 # STATICFILES_DIRS = [

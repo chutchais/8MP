@@ -80,7 +80,6 @@ class SerialNumber(models.Model):
 	# 	if True:
 	# 		raise ValidationError(_('Over WorkOrder QTY'))
 
-
 	
 
 def create_serialnumber_slug(instance, new_slug=None):

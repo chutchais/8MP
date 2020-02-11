@@ -75,7 +75,7 @@
 	</div>
 
 		<div class="col-md-6">
-            <h4>Registered Serial number</h4>
+            <h4>Registered Serial number.</h4>
             {% for sn in object.serialnumbers.all|dictsort:"number" %}
             	<span><a href="{{sn.get_absolute_url}}">
             		{% if sn.wip %}
@@ -87,10 +87,78 @@
             {% endfor %}
         </div>
 
-         
-    </div>
+    </div><!-- end row-->
 
-</div>
+    <div class="row">
+          <div class="col-md-6">
+          	<h4>Current WIP</h4>
+          	<table class="table table-bordered">
+			      <thead>
+			        <tr>
+			          <th scope="col">Operation</th>
+			          <th scope="col">Total Wip</th>
+			          <th scope="col">Last update</th>
+			        </tr>
+			      </thead>
+			      <tbody>
 
-	</div>
+		            {% for opt in object.wip_detail %}
+		            	<tr>
+		            	 <td>{{opt.current_operation}}</td>
+		            	 <td><a href="{% url 'serialnumber:list' %}?workorder={{object}}&operation={{opt.current_operation}}">{{opt.total}}</a></td>
+		            	 <td>{{opt.last_date}}</td>
+		            	</tr>
+		            {% endfor %}
+		        </tr>
+		    	</tbody>
+		    </table>
+          </div>
+      </div> <!-- End Row -->
+
+      	<div class="row">
+          <div class="col-md-6">
+          	<h4>Overall Yield</h4>
+          		<table class="table table-bordered">
+					      <thead>
+					        <tr>
+					          <th scope="col">Operation</th>
+					          <th scope="col">First-in</th>
+					          <th scope="col">First-Passed</th>
+					          <th scope="col">First-Failed</th>
+					          <th scope="col">FPY</th>
+					          <th scope="col">All-in</th>
+					          <th scope="col">All-Passed</th>
+					          <th scope="col">All-Failed</th>
+					          <th scope="col">Accum-Yield</th>
+					        </tr>
+					      </thead>
+					      <tbody>
+
+				            {% for opt in object.overall_yield %}
+				            	<tr>
+				            	 <td>{{opt.operation}}</td>
+				            	 <td><a href="{% url 'performing:list' %}?workorder={{object}}&operation={{opt.operation}}&interval=1">
+				            	 {{opt.first_in}}</a></td>
+				            	 <td><a href="{% url 'performing:list' %}?workorder={{object}}&operation={{opt.operation}}&interval=1&result=true">{{opt.first_pass}}</a></td>
+				            	 <td><a href="{% url 'performing:list' %}?workorder={{object}}&operation={{opt.operation}}&interval=1&result=false">{{opt.first_fail}}</a></td>
+				            	 <td>XX%</td>
+				            	 <td><a href="{% url 'performing:list' %}?workorder={{object}}&operation={{opt.operation}}">
+				            	 {{opt.total_in}}</a></td>
+				            	 <td><a href="{% url 'performing:list' %}?workorder={{object}}&operation={{opt.operation}}&result=true">{{opt.total_pass}}</a></td>
+				            	 <td><a href="{% url 'performing:list' %}?workorder={{object}}&operation={{opt.operation}}&result=false">{{opt.total_fail}}</a></td>
+				            	 <td>XX%</td>
+				            	</tr>
+				            {% endfor %}
+				        </tr>
+				    	</tbody>
+				    </table>
+          </div>
+     </div><!-- end row-->
+
+			    
+
+
+
+
+	</div> <!-- end wrapper-->
 {% endblock content %}

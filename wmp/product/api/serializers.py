@@ -26,7 +26,7 @@ class ProductSerializer(serializers.ModelSerializer):
 class ProductUrlSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Product
-		fields = ['name','url']
+		fields = ['name','url','slug']
 		lookup_field = 'slug'
 		extra_kwargs = {
 			'url': {'lookup_field': 'slug'}

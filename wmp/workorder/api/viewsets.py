@@ -13,7 +13,7 @@ class WorkorderViewSet(viewsets.ModelViewSet):
 	queryset = WorkOrder.objects.all()
 	serializer_class = WorkorderSerializer
 	filter_backends = (filters.SearchFilter,filters.OrderingFilter,DjangoFilterBackend)
-	search_fields = ('name','title','product__name','routing__name','qty','category1','category2', 'description','status')
+	search_fields = ('name','title','product__slug','product__name','routing__name','qty','category1','category2', 'description','status')
 	filter_fields = ('name','title','product__name','routing__name','qty','category1','category2', 'description','status')
 	lookup_field = 'slug'
 	# @detail_route()

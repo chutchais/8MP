@@ -20,6 +20,7 @@ class PerformingAdmin(admin.ModelAdmin):
         ('Transaction Information',{'fields': ['operation','interval',
         		'resource_name',('start_time','stop_time'),'remark']}),
         ('System Information',{'fields':[('user','created_date')]})
+        # 'perform_year','perform_month','perform_day','perform_hour'
     ]
     # resource_class      = ProductResource
 

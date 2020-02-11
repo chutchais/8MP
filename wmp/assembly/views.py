@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import DetailView,CreateView,UpdateView,DeleteView,ListView
 from django.db.models import Q,F
 
-from .models import Assembly
+from .models import Assembly,Assembly_Detail
 
 class AssemblyListView(ListView):
 	model = Assembly
@@ -18,3 +18,7 @@ class AssemblyListView(ListView):
 
 class AssemblyDetailView(DetailView):
 	model = Assembly
+
+
+class AssemblyDetailDetailView(DetailView):
+	model = Assembly_Detail

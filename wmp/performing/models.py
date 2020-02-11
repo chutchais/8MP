@@ -39,6 +39,22 @@ class Performing(models.Model):
 	@property
 	def duration(self):
 		return self.stop_time - self.start_time
+
+	@property
+	def perform_year(self):
+		return self.stop_time.year
+
+	@property
+	def perform_month(self):
+		return self.stop_time.month
+
+	@property
+	def perform_day(self):
+		return self.stop_time.day
+
+	@property
+	def perform_hour(self):
+		return self.stop_time.hour
 	
 
 # def create_performing_slug(instance, new_slug=None):
