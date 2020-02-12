@@ -61,10 +61,10 @@
             <td><a href="{{object.get_absolute_url}}">{{object.number}}</a> </td>
             <td>{{object.refdes}} </td>
             <td>{{object.pn}}</td>
-            <td>{{object.rev}}</td>
-            <td>{{object.pn_type}}</td>
-            <td>{{object.module_number}}</td>
-            <td>{{object.Component}}</td>
+            <td>{{object.rev|default_if_none:''}}</td>
+            <td>{{object.pn_type|default_if_none:''}}</td>
+            <td><a href="{{object.module_number.get_absolute_url}}">{{object.module_number|default_if_none:''}}</a></td>
+            <td><a href="{{object.Component.get_absolute_url}}">{{object.Component|default_if_none:''}}</a></td>
             <td>{{object.operation}}</td>
             <td>{{object.action_status}}</td>
            

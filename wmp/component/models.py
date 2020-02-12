@@ -86,6 +86,7 @@ class Module(models.Model):
 	def get_absolute_url(self):
 		return reverse('component:module-detail', kwargs={'slug': self.slug})
 
+
 	# Validation
 	# def clean(self):
 	# 	# Don't allow draft entries to have a pub_date.
@@ -195,7 +196,10 @@ class Component(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('component:detail', kwargs={'pk': self.pk})
-
+	
+	@property
+	def usage_count(self):
+		return self.assembled.count()
 	# Validation
 	# def clean(self):
 	# 	# Don't allow draft entries to have a pub_date.

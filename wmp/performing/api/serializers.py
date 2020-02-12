@@ -4,13 +4,26 @@ from rest_framework.serializers import (
 	HyperlinkedIdentityField,
 	SerializerMethodField
 	)
-
+import pytz
+from django.utils import timezone
 from performing.models import Performing
 from serialnumber.api.serializers import SerialNumberUrlSerializer
 
+# class DateTimeFieldWihTZ(serializers.DateTimeField):
+#     '''Class to make output of a DateTime Field timezone aware
+#     '''
+#     def to_representation(self, value):
+#         value = timezone.localtime(value)
+#         return super(DateTimeFieldWihTZ, self).to_representation(value)
+# class DateTimeFieldWihTZ(serializers.DateTimeField):
+#     def to_representation(self, value):
+#         value = timezone.localtime(value)
+#         return super(DateTimeFieldWihTZ, self).to_representation(value)
 
 class PerformingSerializer(serializers.ModelSerializer):
 	# sn = SerialNumberUrlSerializer(many=False,read_only=True)
+	# start_time = DateTimeFieldWihTZ()
+	# stop_time = DateTimeFieldWihTZ()
 	class Meta:
 		model = Performing
 		fields = ['uid','sn','operation','resource_name','interval',

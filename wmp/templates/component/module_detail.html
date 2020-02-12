@@ -29,12 +29,12 @@
 
 			    <tr>
 			  		<td>Assebled on </td>
-			      	<td>{{object.parent}}</td>
+			      	<td><a href="{{object.parent.get_absolute_url}}">{{object.parent|default_if_none:''}}</a></td>
 			    </tr>
 
 			    <tr>
 			  		<td>Reserved for</td>
-			      	<td>{{object.reserved_for}}</td>
+			      	<td><a href="{{object.reserved_for.get_absolute_url}}">{{object.reserved_for|default_if_none:''}}</td>
 			    </tr>
 			   
 			    <tr>
@@ -46,7 +46,7 @@
 
 			    <tr>
 			  		<td>Category</td>
-			      	<td>{{object.category1}}/{{object.category2}}</td>
+			      	<td>{{object.category1|default_if_none:''}}/{{object.category2|default_if_none:''}}</td>
 			    </tr>
 
 			    <tr>
@@ -92,21 +92,21 @@
 			    </tr>
 			  	<tr>
 			  		<td>Rev</td>
-			      	<td>{{object.rev}}</td>
+			      	<td>{{object.rev|default_if_none:''}}</td>
 			    </tr>
 			    <tr>
 			  		<td>Date code</td>
-			      	<td>{{object.datecode}}</td>
+			      	<td>{{object.datecode|default_if_none:''}}</td>
 			    </tr>
 
 			    <tr>
 			  		<td>Lot code</td>
-			      	<td>{{object.lotcode}}</td>
+			      	<td>{{object.lotcode|default_if_none:''}}</td>
 			    </tr>
 
 			    <tr>
 			  		<td>Supply code</td>
-			      	<td>{{object.supcode}}</td>
+			      	<td>{{object.supcode|default_if_none:''}}</td>
 			    </tr>
 
 			   

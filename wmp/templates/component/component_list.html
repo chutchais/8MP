@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}8AM - Part list{% endblock %}
+{% block title %}8AM - Component list{% endblock %}
 
 {% block content %}
 
-	<h1>Part List</h1>
+	<h1>Component List</h1>
   <a href="../"><i class="fa fa-home" style="font-size:24px;color:blue" aria-hidden="true"></i></a>
 	<div class="wrapper">	
 
 
     <form class='form' method='GET' action='.'>
-                        <input type='text' id='search' placeholder="Search part" name="q" value='{{ request.GET.q}}'>
+                        <input type='text' id='search' placeholder="Search component" name="q" value='{{ request.GET.q}}'>
                         <button class='btn btn-default' type='submit'>Search</button>
                         <a href="{% url 'component:list'  %}">Clear result</a>
     </form>
@@ -50,6 +50,7 @@
           <th scope="col">Lotcode</th>
           <th scope="col">Supplycode</th>
           <th scope="col">Qty</th>
+          <th scope="col">Usage</th>
           <th scope="col">Carrier</th>
          <th scope="col">Created Date</th>
         
@@ -61,15 +62,16 @@
     		{% for object in object_list %}
           <tr>
             <td><a href="{{object.get_absolute_url}}">{{object}}</a> </td>
-            <td>{{object.title}} </td>
+            <td>{{object.title|default_if_none:''}} </td>
             <td>{{object.pn}}</td>
-            <td>{{object.rev}}</td>
-            <td>{{object.barcode}}</td>
-            <td>{{object.datecode}}</td>
-            <td>{{object.lotcode}}</td>
-            <td>{{object.supcode}}</td>
+            <td>{{object.rev|default_if_none:''}}</td>
+            <td>{{object.barcode|default_if_none:''}}</td>
+            <td>{{object.datecode|default_if_none:''}}</td>
+            <td>{{object.lotcode|default_if_none:''}}</td>
+            <td>{{object.supcode|default_if_none:''}}</td>
             <td>{{object.qty}}</td>
-            <td>{{object.carrier}}</td>
+            <td>{{object.usage_count}}</td>
+            <td>{{object.carrier|default_if_none:''}}</td>
             <td>{{object.registered_date}}</td>
             
             <td><i class="fa {% if object.status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>

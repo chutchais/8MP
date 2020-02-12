@@ -37,6 +37,13 @@
 			      	<td>{{object.qty}}</td>
 			    </tr>
 
+			    
+
+			    <tr>
+			  		<td>Usage</td>
+			      	<td>{{object.usage_count}}</td>
+			    </tr>
+
 			    <tr>
 			  		<td>Carrier</td>
 			      	<td>{{object.carrier}}</td>
@@ -91,21 +98,21 @@
 			    </tr>
 			  	<tr>
 			  		<td>Rev</td>
-			      	<td>{{object.rev}}</td>
+			      	<td>{{object.rev|default_if_none:''}}</td>
 			    </tr>
 			    <tr>
 			  		<td>Date code</td>
-			      	<td>{{object.datecode}}</td>
+			      	<td>{{object.datecode|default_if_none:''}}</td>
 			    </tr>
 
 			    <tr>
 			  		<td>Lot code</td>
-			      	<td>{{object.lotcode}}</td>
+			      	<td>{{object.lotcode|default_if_none:''}}</td>
 			    </tr>
 
 			    <tr>
 			  		<td>Supply code</td>
-			      	<td>{{object.supcode}}</td>
+			      	<td>{{object.supcode|default_if_none:''}}</td>
 			    </tr>
 
 			   
@@ -123,35 +130,35 @@
 
 			  	<tr>
 			  		<td>Moisture Sensitivity Levels</td>
-			      	<td>{{object.msl}}</td>
+			      	<td>{{object.msl|default_if_none:''}}</td>
 			    </tr>
 			  	<tr>
 			  		<td>Floor life (hr)</td>
-			      	<td>{{object.floor_life}}</td>
+			      	<td>{{object.floor_life|default_if_none:''}}</td>
 			    </tr>
 			    <tr>
 			  		<td>Shelf life (day)</td>
-			      	<td>{{object.shelf_life}}</td>
+			      	<td>{{object.shelf_life|default_if_none:''}}</td>
 			    </tr>
 
 			    <tr>
 			  		<td>Manufacturer Exposure Time (hr)</td>
-			      	<td>{{object.met}}</td>
+			      	<td>{{object.met|default_if_none:''}}</td>
 			    </tr>
 
 			    <tr>
 			  		<td>Expire Date</td>
-			      	<td>{{object.exp_date}}</td>
+			      	<td>{{object.exp_date|default_if_none:''}}</td>
 			    </tr>
 
 			    <tr>
 			  		<td>Start Baking Datetime</td>
-			      	<td>{{object.baking_start_date}}</td>
+			      	<td>{{object.baking_start_date|default_if_none:''}}</td>
 			    </tr>
 
 			    <tr>
 			  		<td>Finish Baking Datetime</td>
-			      	<td>{{object.baking_finish_date}}</td>
+			      	<td>{{object.baking_finish_date|default_if_none:''}}</td>
 			    </tr>
 
 			   
@@ -162,7 +169,7 @@
 
      <div class="row">
           <div class="col-md-12">
-            <h4>Assembly and De-assembly History</h4>
+            <h4>Assembly and De-assembly History (Usage)</h4>
 
             <table class="table table-hover">
 		      <thead>
@@ -184,7 +191,7 @@
 		    		{% for object in object.assembled.all %}
 				          <tr>
 				            <td>{{object.operation}} </td>
-				            <td>{{object.number}} </td>
+				            <td><a href="{{object.number.get_absolute_url}}">{{object.number}}</a></td>
 				            <td>{{object.action_date}} </td>
 				            <td>{{object.refdes}} </td>
 				            <td>{{object.pn}}</td>

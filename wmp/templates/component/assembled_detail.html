@@ -30,12 +30,12 @@
 
 			    <tr>
 			  		<td>Module number </td>
-			      	<td>{{object.module_number}}</td>
+			      	<td><a href="{{object.module_number.get_absolute_url}}">{{object.module_number|default_if_none:''}}</a></td>
 			    </tr>
 
 			    <tr>
 			  		<td>Component number</td>
-			      	<td>{{object.component_number}}</td>
+			      	<td><a href="{{object.component_number.get_absolute_url}}">{{object.component_number|default_if_none:''}}</a></td>
 			    </tr>
 			   
 			    <tr>
@@ -84,7 +84,7 @@
 			    </tr>
 			  	<tr>
 			  		<td>Rev</td>
-			      	<td>{{object.rev}}</td>
+			      	<td>{{object.rev|default_if_none:''}}</td>
 			    </tr>
 			    <!-- <tr>
 			  		<td>Date code</td>

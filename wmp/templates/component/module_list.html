@@ -61,8 +61,8 @@
             <td>{{object.title}} </td>
             <td>{{object.pn}}</td>
             <td>{{object.rev}}</td>
-            <td>{{object.parent}}</td>
-            <td>{{object.reserved_for}}</td>
+            <td><a href="{{object.parent.get_absolute_url}}">{{object.parent|default_if_none:''}}</a></td>
+            <td><a href="{{object.reserved_for.get_absolute_url}}">{{object.reserved_for|default_if_none:''}}</a></td>
             <td>{{object.pn_type}}</td>
             <td>{{object.registered_date}}</td>
             <td>{{object.last_modified_date}}</td>

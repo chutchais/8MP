@@ -40,11 +40,11 @@
 			    </tr>
 			    <tr>
 			      <td>Category1</td>
-			      <td>{{object.category1}}</td>
+			      <td>{{object.category1|default_if_none:''}}</td>
 			    </tr>
 			    <tr>
 			      <td>Category2</td>
-			      <td>{{object.category2}}</td>
+			      <td>{{object.category2|default_if_none:''}}</td>
 			    </tr>
 			    <tr>
 			      <td>Registered date.</td>
@@ -92,7 +92,7 @@
 			      <td>Performing Opr</td>
 			      <td>
 			      		{% if object.perform_operation %}
-				      	<a href="{{ object.perform_operation.get_absolute_url }}">{{object.perform_operation}}
+				      	<a href="{{ object.perform_operation.get_absolute_url }}">{{object.perform_operation|default_if_none:''}}
 				      	</a>
 				      	{% endif %}
 			      </td>
@@ -100,12 +100,12 @@
 
 			    <tr>
 			      <td>Performing Resource</td>
-			      <td>{{object.perform_resource}}</td>
+			      <td>{{object.perform_resource|default_if_none:''}}</td>
 			    </tr>
 
 			    <tr>
 			      <td>Performing Start Time</td>
-			      <td>{{object.perform_start_date}}</td>
+			      <td>{{object.perform_start_date|default_if_none:''}}</td>
 			    </tr>
 
 			    
@@ -160,7 +160,7 @@
 
     <div class="row">
           <div class="col-md-12">
-            <h4>Perfoming Information</h4>
+            <h4>Perfoming Information (Move History)</h4>
             <table class="table table-hover">
 		  <thead >
 		    <tr>
