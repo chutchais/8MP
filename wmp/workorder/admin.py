@@ -31,7 +31,8 @@ class WorkOrderAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.M
     save_on_top =True
 
     fieldsets = [
-        ('Basic Information',{'fields': ['name','title','product','qty','build_type','description','category1','category2']}),
+        ('Basic Information',{'fields': ['name','title','product','qty','build_type',
+                    'description','category1','category2','status']}),
         ('Serial Number Format Control',{'fields': ['regexp']}),
         ('Routing Control',{'fields': ['routing']}),
         ('System Information',{'fields':[('user','created_date'),'modified_date','slug']})
