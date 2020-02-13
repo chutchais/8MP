@@ -57,6 +57,7 @@ from routing.models import (RoutingDetail,RoutingDetailParameterSet,
                                     RoutingDetailHook)
 from routing.models import RoutingDetailAccept
 from routing.models import RoutingDetailReject
+from routing.models import RoutingDetailOperationChoice
 
 
 
@@ -121,6 +122,17 @@ class AssemblyInline(admin.TabularInline):
     show_change_link = True
     verbose_name_plural = 'Routing - Assembly'
 
+# Operation Choice
+class OperationChoiceInline(admin.TabularInline):
+    model = RoutingDetailOperationChoice
+    extra = 0
+    fields = ['ordered','operation','title','status','created_date']
+    readonly_fields =['created_date']
+    autocomplete_fields =['operation']
+    # can_delete = True
+    show_change_link = True
+    verbose_name_plural = 'Routing - Operation Choice'
+
 class RoutingDetailResource(resources.ModelResource):
     class Meta:
         model = RoutingDetail
@@ -147,7 +159,9 @@ class RoutingDetailAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,adm
         ('System Information',{'fields':[('user','created_date'),'modified_date','slug']})
     ]
     resource_class      = RoutingDetailResource
-    inlines = [AcceptInline,RejectInline,RoutingDetailParameterInline,NextOperationInline,HookInline,AssemblyInline]
+    inlines = [AcceptInline,RejectInline,RoutingDetailParameterInline,
+                    NextOperationInline,HookInline,AssemblyInline,
+                    OperationChoiceInline]
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user

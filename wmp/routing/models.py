@@ -439,3 +439,24 @@ def pre_save_hook_receiver(sender, instance, *args, **kwargs):
 
 pre_save.connect(pre_save_hook_receiver, sender=RoutingDetailHook)
 
+
+class RoutingDetailOperationChoice(models.Model):
+	ordered 				= models.IntegerField(default=1)
+	routingdetail 			= models.ForeignKey('RoutingDetail',
+									related_name='choices',
+									on_delete=models.CASCADE)
+	title 					= models.CharField(max_length=100,blank=True, null=True)
+	operation 				= models.ForeignKey(Operation, on_delete=models.CASCADE,
+									related_name='choices')
+	status 					= models.CharField(max_length=1,choices=STATUS_CHOICES,default=ACTIVE)
+	created_date 			= models.DateTimeField(auto_now_add=True)
+	modified_date 			= models.DateTimeField(blank=True, null=True,auto_now=True)
+	user 					= models.ForeignKey(settings.AUTH_USER_MODEL,
+									on_delete=models.SET_NULL,
+									blank=True,null=True)
+	
+	def __str__(self):
+		return ('%s of %s' % (self.operation,self.routingdetail))
+
+	# def get_absolute_url(self):
+	# 	return reverse('routing:choice-detail', kwargs={'id': self.id})

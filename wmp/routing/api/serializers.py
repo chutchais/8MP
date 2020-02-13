@@ -10,7 +10,8 @@ from routing.models import (Routing,RoutingDetail,RoutingDetailNext,
 							RoutingDetailNextSet,RoutingDetailAccept,RoutingDetailAcceptSet,
 							RoutingDetailReject,RoutingDetailRejectSet,
 							RoutingDetailHook,
-							RoutingDetailParameterSet)
+							RoutingDetailParameterSet,
+							RoutingDetailOperationChoice)
 
 from snippet.api.serializers import SnippetUrlSerializer
 from parameter.api.serializers import ParameterSerializer
@@ -27,20 +28,26 @@ class RoutingUrlSerializer(serializers.ModelSerializer):
 		model = Routing
 		fields = ['name','url']
 
+class ChoiceUrlSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = RoutingDetailOperationChoice
+		fields = ['ordered','operation','title']
+
 class RoutingDetailSerializer(serializers.ModelSerializer):
 	accept_code = HyperlinkedRelatedField(many=True,read_only=True,view_name='routingdetailaccept-detail')
 	reject_code = HyperlinkedRelatedField(many=True,read_only=True,view_name='routingdetailreject-detail')
 	next_code   = HyperlinkedRelatedField(many=True,read_only=True,view_name='routingdetailnext-detail')
 	parameter   = HyperlinkedRelatedField(many=True,read_only=True,view_name='parameter-detail')
 	hooks   	= HyperlinkedRelatedField(many=True,read_only=True,view_name='routingdetailhook-detail')
-	# assembly_usages   	= HyperlinkedRelatedField(many=True,read_only=True,
-	# 					view_name='assembly_usage-detail',lookup_field='slug')
 	assembly_usages = AssemblyUsageUrlSerializer(many=True,read_only=True)
+	choices 		= ChoiceUrlSerializer(many=True,read_only=True)
+
 	class Meta:
 		model = RoutingDetail
 		fields =  ['operation','routing','position','title','description',
 				'category1','category2','parameter','next_pass','next_fail',
-				'accept_code','reject_code','next_code','hooks','assembly_usages','status','url','slug']
+				'accept_code','reject_code','next_code','hooks','assembly_usages',
+				'choices','status','url','slug']
 
 
 
