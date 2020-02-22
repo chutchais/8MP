@@ -6,7 +6,8 @@ from rest_framework.serializers import (
 	)
 
 from symptom.models import (Symptom,
-							SymptomCode)
+							SymptomCode,
+							SymptomCode_Usage)
 
 
 
@@ -20,7 +21,13 @@ class SymptomCodeSerializer(serializers.ModelSerializer):
 class SymptomCodeUrlSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = SymptomCode
-		fields = ['name','url']
+		fields = ['name','title','url']
+
+class SymptomCodeUsageUrlSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = SymptomCode_Usage
+		fields = ['ordered','symptomcode','title']
+		ordering = ['ordered']
 
 
 

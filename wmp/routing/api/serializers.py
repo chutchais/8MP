@@ -33,6 +33,8 @@ class ChoiceUrlSerializer(serializers.ModelSerializer):
 		model = RoutingDetailOperationChoice
 		fields = ['ordered','operation','title']
 
+from symptom.api.serializers import SymptomCodeUsageUrlSerializer
+
 class RoutingDetailSerializer(serializers.ModelSerializer):
 	accept_code = HyperlinkedRelatedField(many=True,read_only=True,view_name='routingdetailaccept-detail')
 	reject_code = HyperlinkedRelatedField(many=True,read_only=True,view_name='routingdetailreject-detail')
@@ -41,13 +43,13 @@ class RoutingDetailSerializer(serializers.ModelSerializer):
 	hooks   	= HyperlinkedRelatedField(many=True,read_only=True,view_name='routingdetailhook-detail')
 	assembly_usages = AssemblyUsageUrlSerializer(many=True,read_only=True)
 	choices 		= ChoiceUrlSerializer(many=True,read_only=True)
-
+	symptomcode_usages = SymptomCodeUsageUrlSerializer(many=True,read_only=True)
 	class Meta:
 		model = RoutingDetail
 		fields =  ['operation','routing','position','title','description',
 				'category1','category2','parameter','next_pass','next_fail',
 				'accept_code','reject_code','next_code','hooks','assembly_usages',
-				'choices','status','url','slug']
+				'choices','status','url','slug','symptomcode_usages']
 
 
 

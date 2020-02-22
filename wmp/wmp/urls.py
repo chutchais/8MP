@@ -62,6 +62,7 @@ urlpatterns = [
     url(r'^routing-detail/',include(('routing.urls','routing-detail'),namespace='routing-detail')),
     url(r'^serialnumber/',include(('serialnumber.urls','serialnumber'),namespace='serialnumber')),
     url(r'^snippet/',include(('snippet.urls','snippet'),namespace='snippet')),
+    url(r'^symptom/',include(('symptom.urls','symptom'),namespace='symptom')),
     url(r'^workorder/',include(('workorder.urls','workorder'),namespace='workorder')),
     # url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 

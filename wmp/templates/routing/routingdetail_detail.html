@@ -103,6 +103,18 @@
 			    </tr>
 
 			    <tr>
+			      <td>Symptom Codes</td>
+			      <td>
+			      	{% for each in object.symptomcode_usages.all %}
+						    <li>
+						    	{{ each.ordered }} - 
+						    	<a href="{{ each.symptomcode.get_absolute_url }}">{{ each.symptomcode }}</a> - {{each.title}}
+						    </li>
+						{% endfor %}
+			      </td>
+			    </tr>
+
+			    <tr>
 			  		<td>Status</td>
 			      	<td><i class="fa {% if object.status == 'A' %} ' fa-check-circle '  {% else %} ' fa-times-circle ' {% endif %} {% if object.status == 'A' %} true  {% else %} false {% endif %}" aria-hidden="true"></i></td>
 			    </tr>

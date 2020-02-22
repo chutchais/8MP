@@ -133,6 +133,18 @@ class OperationChoiceInline(admin.TabularInline):
     show_change_link = True
     verbose_name_plural = 'Routing - Operation Choice'
 
+# Symptom Code
+from symptom.models import SymptomCode_Usage
+class SymptomCodeInline(admin.TabularInline):
+    model = SymptomCode_Usage
+    extra = 0
+    fields = ['ordered','symptomcode','title','status','created_date']
+    readonly_fields =['created_date']
+    autocomplete_fields =['symptomcode']
+    # can_delete = True
+    show_change_link = True
+    verbose_name_plural = 'Routing - Symptom configuration'
+
 class RoutingDetailResource(resources.ModelResource):
     class Meta:
         model = RoutingDetail
@@ -161,7 +173,7 @@ class RoutingDetailAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,adm
     resource_class      = RoutingDetailResource
     inlines = [AcceptInline,RejectInline,RoutingDetailParameterInline,
                     NextOperationInline,HookInline,AssemblyInline,
-                    OperationChoiceInline]
+                    OperationChoiceInline,SymptomCodeInline]
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
