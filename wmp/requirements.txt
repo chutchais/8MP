@@ -1,5 +1,5 @@
 six==1.12
-Django==2.2.9
+Django==2.2.13
 djangorestframework==3.8.2
 djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==3.2.3
